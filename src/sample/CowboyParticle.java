@@ -7,19 +7,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
-public class CowboyParticle extends ImageView {
+class CowboyParticle extends ImageView {
 
 
     /*audioClip à jouer si on cogne sur les parois de parent*/
-    AudioClip audio;
+    private final AudioClip audio;
 
-    DoubleProperty vx = new SimpleDoubleProperty();
-    DoubleProperty vy = new SimpleDoubleProperty();
-    DoubleProperty mass = new SimpleDoubleProperty(1.0);
+    private final DoubleProperty vx = new SimpleDoubleProperty();
+    private final DoubleProperty vy = new SimpleDoubleProperty();
+    private final DoubleProperty mass = new SimpleDoubleProperty(1.0);
 
 
-    DoubleProperty movex = new SimpleDoubleProperty();
-    DoubleProperty movey = new SimpleDoubleProperty();
+    private final DoubleProperty movex = new SimpleDoubleProperty();
+    private final DoubleProperty movey = new SimpleDoubleProperty();
 
 
     /*  ax,ay - l'axe de personnage.
@@ -32,12 +32,12 @@ public class CowboyParticle extends ImageView {
         Si le personnage a la face tournée à droite alors
           (ax,ay)=(-1.0,0.0)
     */
-    DoubleProperty ax = new SimpleDoubleProperty();
-    DoubleProperty ay = new SimpleDoubleProperty();
+    private final DoubleProperty ax = new SimpleDoubleProperty();
+    private final DoubleProperty ay = new SimpleDoubleProperty();
 
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
-    DoubleProperty rate = new SimpleDoubleProperty(0.2);
+    private final DoubleProperty rate = new SimpleDoubleProperty(0.2);
 
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),
@@ -72,7 +72,7 @@ public class CowboyParticle extends ImageView {
     avec les Icones dont la face est par défaut
     tournée vers le bas ou vers le haut.
     */
-    void faireRotation() {
+    private void faireRotation() {
         double tn = (ax.doubleValue() * vy.doubleValue() - ay.doubleValue() * vx.doubleValue())
                 / (ax.doubleValue() * vx.doubleValue() + ay.doubleValue() * vy.doubleValue());
         double degrees = Math.toDegrees(Math.atan(tn));
@@ -116,11 +116,11 @@ public class CowboyParticle extends ImageView {
         return rate;
     }
 
-    void setay(double v) {
+    private void setay(double v) {
         ay.set(v);
     }
 
-    void setax(double v) {
+    private void setax(double v) {
         ax.set(v);
     }
 
@@ -132,27 +132,27 @@ public class CowboyParticle extends ImageView {
         movey.set(v);
     }
 
-    double getVx() {
+    private double getVx() {
         return vx.getValue();
     }
 
-    void setVx(double v) {
+    private void setVx(double v) {
         vx.set(v);
     }
 
-    double getMovex() {
+    private double getMovex() {
         return movex.getValue();
     }
 
-    double getMovey() {
+    private double getMovey() {
         return movey.getValue();
     }
 
-    double getVy() {
+    private double getVy() {
         return vy.getValue();
     }
 
-    void setVy(double v) {
+    private void setVy(double v) {
         vy.set(v);
     }
 
