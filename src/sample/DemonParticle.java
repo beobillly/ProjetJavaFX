@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
-class CowboyParticle extends SingleParticle {
+class DemonParticle extends SingleParticle {
+
 
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),
@@ -15,13 +16,11 @@ class CowboyParticle extends SingleParticle {
          côté represente la face du presonnage.
          Quand le personnage se déplace nous voulons qu'il soit tourné
          vers la direction du mouvement.
-
-
     */
 
-    public CowboyParticle(Image image, double x, double y,
-                          double v_x, double v_y, AudioClip audioClip,
-                          double ax, double ay, double movex, double movey) {
+    public DemonParticle(Image image, double x, double y,
+                         double v_x, double v_y, AudioClip audioClip,
+                         double ax, double ay, double movex, double movey) {
         super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey);
     }
 
@@ -43,10 +42,9 @@ class CowboyParticle extends SingleParticle {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     void move() {
-
-
-        setX(getX() * get_MoveX());
-        setY(getY() * get_MoveY());
+        double delta = 2.7 * get_Rate();
+        setX(getX() + get_VX() * delta);
+        setY(getY() + get_VY() * delta);
         /*verifier si on ne sort pas sur une position
           avec x negatif*/
         if (getX() < 0 && get_VX() < 0) {

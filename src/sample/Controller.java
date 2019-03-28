@@ -56,8 +56,8 @@ public class Controller {
 
             //particles[i] = new SingleParticle(image, px, py,
             //        vx, vy,audioClip, 0.0, 1.0);
-            particles[i] = new SingleParticle(image, px, py,
-                    vx, vy, audioClip, 0.0, 1.0);
+            particles[i] = new DemonParticle(image, px, py,
+                    vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0);
             pane.getChildren().add(particles[i]);
         }
 
@@ -86,13 +86,13 @@ public class Controller {
                                 .intersects(particles[j].getBoundsInParent())) {
 
                             particles[i].setImage(mite);
-                            particles[i].setax(0.0);
-                            particles[i].setay(-1.0);
+                            particles[i].set_AX(0.0);
+                            particles[i].set_AY(-1.0);
                             particles[i].faireRotation();
 
                             particles[j].setImage(mite);
-                            particles[j].setax(0.0);
-                            particles[j].setay(-1.0);
+                            particles[j].set_AX(0.0);
+                            particles[j].set_AY(-1.0);
                             particles[j].faireRotation();
 
                         }

@@ -4,20 +4,20 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
-class SingleParticle extends ImageView {
+abstract class SingleParticle extends ImageView {
 
 
     /*audioClip à jouer si on cogne sur les parois de parent*/
-    private final AudioClip audio;
+    final AudioClip audio;
 
-    private final DoubleProperty vx = new SimpleDoubleProperty();
-    private final DoubleProperty vy = new SimpleDoubleProperty();
-    private final DoubleProperty mass = new SimpleDoubleProperty(1.0);
+    final DoubleProperty vx = new SimpleDoubleProperty();
+    final DoubleProperty vy = new SimpleDoubleProperty();
+    final DoubleProperty mass = new SimpleDoubleProperty(1.0);
 
-
+    final DoubleProperty movex = new SimpleDoubleProperty();
+    final DoubleProperty movey = new SimpleDoubleProperty();
     /*  ax,ay - l'axe de personnage.
         Si le personnage a la face tourné en bas alors
          (ax,ay)=(0.0,1.0)
@@ -28,12 +28,12 @@ class SingleParticle extends ImageView {
         Si le personnage a la face tournée à droite alors
           (ax,ay)=(-1.0,0.0)
     */
-    private final DoubleProperty ax = new SimpleDoubleProperty();
-    private final DoubleProperty ay = new SimpleDoubleProperty();
+    final DoubleProperty ax = new SimpleDoubleProperty();
+    final DoubleProperty ay = new SimpleDoubleProperty();
 
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
-    private final DoubleProperty rate = new SimpleDoubleProperty(0.2);
+    final DoubleProperty rate = new SimpleDoubleProperty(0.2);
 
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),
@@ -48,17 +48,19 @@ class SingleParticle extends ImageView {
 
     */
 
-    public SingleParticle(Image image, double x, double y,
-                          double v_x, double v_y, AudioClip audioClip,
-                          Double ax, double ay) {
+    SingleParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip,
+                   double ax, double ay, double movex, double movey) {
         super(image);
         vx.set(v_x);
         vy.set(v_y);
         setX(x);
         setY(y);
         this.audio = audioClip;
-        setax(ax);
-        setay(ay);
+        set_AX(ax);
+        set_AY(ay);
+        set_MoveX(movex);
+        set_MoveY(movey);
         faireRotation();
     }
 
@@ -104,51 +106,67 @@ class SingleParticle extends ImageView {
         return rate;
     }
 
-    void setay(double v) {
-        ay.set(v);
+    double get_MoveX() {
+        return movex.getValue();
     }
 
-    void setax(double v) {
-        ax.set(v);
+    void set_MoveX(double v) {
+        movex.set(v);
     }
 
-    private double getVx() {
+    double get_MoveY() {
+        return movey.getValue();
+    }
+
+    void set_MoveY(double v) {
+        movey.set(v);
+    }
+
+    double get_VX() {
         return vx.getValue();
     }
 
-    private void setVx(double v) {
+    void set_VX(double v) {
         vx.set(v);
     }
 
-    private double getVy() {
+    double get_VY() {
         return vy.getValue();
     }
 
-    private void setVy(double v) {
+    void set_VY(double v) {
         vy.set(v);
     }
 
-    double getax() {
+    double get_AX() {
         return ax.getValue();
     }
 
-    double getay() {
+    void set_AX(double v) {
+        ax.set(v);
+    }
+
+    double get_AY() {
         return vy.getValue();
     }
 
-    double getMass() {
+    void set_AY(double v) {
+        ay.set(v);
+    }
+
+    double get_Mass() {
         return mass.getValue();
     }
 
-    void setMass(double m) {
+    void set_Mass(double m) {
         mass.set(m);
     }
 
-    private double getRate() {
+    double get_Rate() {
         return rate.getValue();
     }
 
-    void setRate(double r) {
+    void set_Rate(double r) {
         rate.setValue(r);
     }
 
@@ -169,50 +187,7 @@ class SingleParticle extends ImageView {
 
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
-    void move() {
-        double delta = 2.7 * getRate();
-        setX(getX() + getVx() * delta);
-        setY(getY() + getVy() * delta);
-        /*verifier si on ne sort pas sur une position
-          avec x negatif*/
-        if (getX() < 0 && getVx() < 0) {
-            setVx(-getVx());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-        }
-        /* verifier si on ne sort pas sur une position
-        avec y negatif*/
-        if (getY() < 0 && getVy() < 0) {
-            setVy(-getVy());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-            //audio.play();
-        }
-        /*verifier si on ne sort pas sur le bord droit du parent*/
-        if (getX() + getBoundsInLocal().getWidth()
-                > ((Region) getParent()).getWidth()
-                && getVx() > 0) {
-            setX(((Region) getParent()).getWidth() - getBoundsInLocal().getWidth());
-            setVx(-getVx());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-            //audio.play();
-        }
-        /*verifier si on ne sort pas sur le bord en bas du parent*/
-        if (getY() + getBoundsInLocal().getHeight()
-                > ((Region) getParent()).getHeight()
-                && getVy() > 0) {
-            setY(((Region) getParent()).getWidth() - getBoundsInLocal().getHeight());
-            setVy(-getVy());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-            //audio.play();
-        }
-    }
+    abstract void move();
 
 }
 
