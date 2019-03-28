@@ -19,9 +19,9 @@ class CowboyParticle extends SingleParticle {
 
     */
 
-    public CowboyParticle(Image image, double x, double y,
-                          double v_x, double v_y, AudioClip audioClip,
-                          double ax, double ay, double movex, double movey) {
+    CowboyParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip,
+                   double ax, double ay, double movex, double movey) {
         super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey);
     }
 

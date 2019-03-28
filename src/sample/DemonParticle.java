@@ -18,9 +18,9 @@ class DemonParticle extends SingleParticle {
          vers la direction du mouvement.
     */
 
-    public DemonParticle(Image image, double x, double y,
-                         double v_x, double v_y, AudioClip audioClip,
-                         double ax, double ay, double movex, double movey) {
+    DemonParticle(Image image, double x, double y,
+                  double v_x, double v_y, AudioClip audioClip,
+                  double ax, double ay, double movex, double movey) {
         super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey);
     }
 
