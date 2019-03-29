@@ -86,16 +86,16 @@ public class Controller {
                     @Override
                     public void handle(KeyEvent event) {
                         switch (event.getCode()) {
-                            case UP:
+                            case W:
                                 cowboy.set_VY(-2);
                                 break;
-                            case DOWN:
+                            case S:
                                 cowboy.set_VY(2);
                                 break;
-                            case LEFT:
+                            case A:
                                 cowboy.set_VX(-2);
                                 break;
-                            case RIGHT:
+                            case D:
                                 cowboy.set_VX(2);
                                 break;
                             //case SHIFT: running = true; break;
@@ -109,16 +109,16 @@ public class Controller {
                     @Override
                     public void handle(KeyEvent event) {
                         switch (event.getCode()) {
-                            case UP:
+                            case W:
                                 cowboy.set_VY(0);
                                 break;
-                            case DOWN:
+                            case S:
                                 cowboy.set_VY(0);
                                 break;
-                            case LEFT:
+                            case A:
                                 cowboy.set_VX(0);
                                 break;
-                            case RIGHT:
+                            case D:
                                 cowboy.set_VX(0);
                                 break;
                             //case SHIFT: running = false; break;
