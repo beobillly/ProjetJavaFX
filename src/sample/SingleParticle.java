@@ -33,7 +33,7 @@ abstract class SingleParticle extends ImageView {
 
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
-    final DoubleProperty rate = new SimpleDoubleProperty(0.2);
+    final DoubleProperty rate = new SimpleDoubleProperty(0.1);
 
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),

@@ -1,11 +1,65 @@
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.Controller">
+    <top>
+        <MenuBar useSystemMenuBar="true">
+            <Menu text="Fichier">
+                <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
+
+                </MenuItem>
+
+            </Menu>
+            <Menu text="Aide">
+                <MenuItem text="Afficher l'aide" onAction="#quitter" accelerator="shortcut+H">
+
+                </MenuItem>
+
+            </Menu>
+        </MenuBar>
+    </top>
     <center>
-        <Pane fx:id="pane" prefWidth="500" prefHeight="500"/>
+        <VBox alignment="center">
+            <padding>
+                <Insets left="10" right="10" top="10" bottom="10"/>
+            </padding>
+            <children>
+                <HBox alignment="TOP_CENTER" spacing="30">
+                    <padding>
+                        <Insets top="10" bottom="10"
+                                left="10" right="10"/>
+                    </padding>
+                    <VBox alignment="center" spacing="30">
+                        <Label fx:id="label">
+
+                        </Label>
+                        <ListView orientation="horizontal"
+
+                                  prefHeight="60" maxHeight="60"
+                                  fx:id="listb">
+
+                        </ListView>
+
+                    </VBox>
+                    <Pane fx:id="pane" prefWidth="500" prefHeight="500"/>
+
+                </HBox>
+
+
+                <FlowPane orientation="horizontal"
+                          alignment="BOTTOM_CENTER" hgap="10">
+
+                    <Button text="Ultimate" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                            fx:id="button" onAction="#itsHighNoooooon">
+                    </Button>
+                </FlowPane>
+
+
+            </children>
+        </VBox>
+
+
     </center>
     <bottom>
         <TitledPane text="vitesse">
@@ -13,3 +67,4 @@
         </TitledPane>
     </bottom>
 </BorderPane>
+

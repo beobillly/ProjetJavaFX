@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
@@ -169,4 +170,9 @@ public class Controller {
     }
 
 
+    public void quitter(ActionEvent actionEvent) {
+    }
+
+    public void itsHighNoooooon(ActionEvent actionEvent) {
+    }
 }
