@@ -16,6 +16,7 @@ abstract class SingleParticle extends ImageView {
     final DoubleProperty vy = new SimpleDoubleProperty();
     final DoubleProperty mass = new SimpleDoubleProperty(1.0);
 
+    final DoubleProperty degre = new SimpleDoubleProperty(0.0);
     final DoubleProperty movex = new SimpleDoubleProperty();
     final DoubleProperty movey = new SimpleDoubleProperty();
     /*  ax,ay - l'axe de personnage.
@@ -30,6 +31,8 @@ abstract class SingleParticle extends ImageView {
     */
     final DoubleProperty ax = new SimpleDoubleProperty();
     final DoubleProperty ay = new SimpleDoubleProperty();
+
+    final DoubleProperty genre = new SimpleDoubleProperty();
 
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
@@ -50,7 +53,7 @@ abstract class SingleParticle extends ImageView {
 
     SingleParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
-                   double ax, double ay, double movex, double movey) {
+                   double ax, double ay, double movex, double movey, double genre) {
         super(image);
         vx.set(v_x);
         vy.set(v_y);
@@ -61,6 +64,7 @@ abstract class SingleParticle extends ImageView {
         set_AY(ay);
         set_MoveX(movex);
         set_MoveY(movey);
+        set_Genre(genre);
         faireRotation();
     }
 
@@ -71,12 +75,14 @@ abstract class SingleParticle extends ImageView {
     tournée vers le bas ou vers le haut.
     */
     void faireRotation() {
-        double tn = (ax.doubleValue() * vy.doubleValue() - ay.doubleValue() * vx.doubleValue())
-                / (ax.doubleValue() * vx.doubleValue() + ay.doubleValue() * vy.doubleValue());
-        double degrees = Math.toDegrees(Math.atan(tn));
+        double degrees = get_Degre();
 
-        if (vy.getValue() > 0) {
-            degrees = 180 + degrees;
+        if (vx.getValue() != 0 || vy.getValue() != 0) {
+            degrees = Math.toDegrees(Math.atan(vy.getValue() / vx.getValue())) + 90;
+            set_Degre(degrees);
+        }
+        if (vx.getValue() < 0) {
+            degrees += 180;
         }
 
         setRotate(degrees);
@@ -86,8 +92,16 @@ abstract class SingleParticle extends ImageView {
         return vx;
     }
 
+    DoubleProperty degreProperty() {
+        return degre;
+    }
+
     DoubleProperty vyProperty() {
         return vy;
+    }
+
+    DoubleProperty genreProperty() {
+        return genre;
     }
 
     DoubleProperty axProperty() {
@@ -112,6 +126,22 @@ abstract class SingleParticle extends ImageView {
 
     void set_MoveX(double v) {
         movex.set(v);
+    }
+
+    double get_Degre() {
+        return degre.getValue();
+    }
+
+    void set_Degre(double v) {
+        degre.set(v);
+    }
+
+    double get_Genre() {
+        return genre.getValue();
+    }
+
+    void set_Genre(double v) {
+        genre.set(v);
     }
 
     double get_MoveY() {
@@ -147,7 +177,7 @@ abstract class SingleParticle extends ImageView {
     }
 
     double get_AY() {
-        return vy.getValue();
+        return ay.getValue();
     }
 
     void set_AY(double v) {

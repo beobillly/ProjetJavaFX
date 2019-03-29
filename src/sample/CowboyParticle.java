@@ -1,29 +1,71 @@
 package sample;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
 class CowboyParticle extends SingleParticle {
 
-    /* le constructeur prend en parametre :
-       - un Image (une petite icone) qui represent un personage (animal etc),
-       - (x,y) la position initiale de l'objet
-       - (v_x,v_y) la vitesse initiale de l'objet dans les axes x et y
-       - un AudioClip qui est joué quand l'objet rebondit le parois
-       - (ax,ay) - on suppose que l'image possede 4 côté et une
-         côté represente la face du presonnage.
-         Quand le personnage se déplace nous voulons qu'il soit tourné
-         vers la direction du mouvement.
-
-
-    */
+    final DoubleProperty munitions = new SimpleDoubleProperty();
+    final DoubleProperty vie = new SimpleDoubleProperty();
+    final DoubleProperty ultimate = new SimpleDoubleProperty();
 
     CowboyParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
-                   double ax, double ay, double movex, double movey) {
-        super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey);
+                   double ax, double ay, double movex, double movey, double genre) {
+        super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
+        set_Munitions(50);
+        set_Vie(1);
+        set_Ultimate(0);
     }
+
+    CowboyParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip,
+                   double ax, double ay, double movex, double movey, double genre, double munitions, double vie, double ultimate) {
+        this(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
+        set_Munitions(munitions);
+        set_Vie(vie);
+        set_Ultimate(ultimate);
+    }
+
+    DoubleProperty munitionsProperty() {
+        return munitions;
+    }
+
+    DoubleProperty vieProperty() {
+        return vie;
+    }
+
+    DoubleProperty ultimateProperty() {
+        return ultimate;
+    }
+
+    double get_Munitions() {
+        return munitions.getValue();
+    }
+
+    void set_Munitions(double v) {
+        munitions.set(v);
+    }
+
+    double get_Vie() {
+        return vie.getValue();
+    }
+
+    void set_Vie(double v) {
+        vie.set(v);
+    }
+
+    double get_Ultimate() {
+        return ultimate.getValue();
+    }
+
+    void set_Ultimate(double v) {
+        ultimate.set(v);
+    }
+
 
     /* la methode move() fait bouger l'objet
     sur la scene. Cette méthode sera appelée dans la methode handle()

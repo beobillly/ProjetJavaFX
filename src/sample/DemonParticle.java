@@ -20,8 +20,8 @@ class DemonParticle extends SingleParticle {
 
     DemonParticle(Image image, double x, double y,
                   double v_x, double v_y, AudioClip audioClip,
-                  double ax, double ay, double movex, double movey) {
-        super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey);
+                  double ax, double ay, double movex, double movey, double genre) {
+        super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
     }
 
     /* la methode move() fait bouger l'objet
@@ -42,7 +42,7 @@ class DemonParticle extends SingleParticle {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     void move() {
-        double delta = 2.7 * get_Rate();
+        double delta = 1 * get_Rate();
         setX(getX() + get_VX() * delta);
         setY(getY() + get_VY() * delta);
         /*verifier si on ne sort pas sur une position
