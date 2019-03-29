@@ -45,8 +45,9 @@ class CowboyParticle extends SingleParticle {
     void move() {
 
 
-        setX(getX() * get_MoveX());
-        setY(getY() * get_MoveY());
+        double delta = 2.7 * get_Rate();
+        setX(getX() + get_VX() * delta);
+        setY(getY() + get_VY() * delta);
         /*verifier si on ne sort pas sur une position
           avec x negatif*/
         if (getX() < 0 && get_VX() < 0) {

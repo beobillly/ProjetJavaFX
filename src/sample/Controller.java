@@ -1,9 +1,11 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
@@ -45,6 +47,8 @@ public class Controller {
 
 //creer les particules
         for (int i = 0; i < particles.length; i++) {
+
+
             //utiliser soit l'image d'un hibou soit
             //l'image d'un chat
             Image image = ((i & 1) == 1) ? owl : cat;
@@ -56,11 +60,14 @@ public class Controller {
 
             //particles[i] = new SingleParticle(image, px, py,
             //        vx, vy,audioClip, 0.0, 1.0);
+
             particles[i] = new DemonParticle(image, px, py,
                     vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0);
             pane.getChildren().add(particles[i]);
         }
 
+        CowboyParticle cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0);
+        pane.getChildren().add(cowboy);
 
 
         /* AnimationTimer :  implementation de la méthode
@@ -72,6 +79,54 @@ public class Controller {
                 for (SingleParticle p : particles) {
                     p.move();
                 }
+                cowboy.move();
+
+                pane.getParent().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        switch (event.getCode()) {
+                            case UP:
+                                cowboy.set_VY(-2);
+                                break;
+                            case DOWN:
+                                cowboy.set_VY(2);
+                                break;
+                            case LEFT:
+                                cowboy.set_VX(-2);
+                                break;
+                            case RIGHT:
+                                cowboy.set_VX(2);
+                                break;
+                            //case SHIFT: running = true; break;
+                        }
+
+                        cowboy.faireRotation();
+                    }
+                });
+
+                pane.getParent().setOnKeyReleased(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        switch (event.getCode()) {
+                            case UP:
+                                cowboy.set_VY(0);
+                                break;
+                            case DOWN:
+                                cowboy.set_VY(0);
+                                break;
+                            case LEFT:
+                                cowboy.set_VX(0);
+                                break;
+                            case RIGHT:
+                                cowboy.set_VX(0);
+                                break;
+                            //case SHIFT: running = false; break;
+                        }
+
+
+                        cowboy.faireRotation();
+                    }
+                });
 
                  /*pour chaque couple de particules
                 verifier si les deux particules chevauchent.
@@ -108,8 +163,9 @@ public class Controller {
                     .multiply(1 / 0.3));
         }
 
-
         timer.start();
+
+
     }
 
 
