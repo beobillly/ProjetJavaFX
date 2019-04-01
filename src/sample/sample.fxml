@@ -6,13 +6,17 @@
     <top>
         <MenuBar useSystemMenuBar="true">
             <Menu text="Fichier">
-                <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
-
+                <MenuItem text="Jouer" onAction="#jouer" accelerator="shortcut+J">
                 </MenuItem>
+                <MenuItem text="Pause" onAction="#pause" accelerator="shortcut+P">
+                </MenuItem>
+                <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
+                </MenuItem>
+
 
             </Menu>
             <Menu text="Aide">
-                <MenuItem text="Afficher l'aide" onAction="#quitter" accelerator="shortcut+H">
+                <MenuItem text="Afficher l'aide" onAction="#help" accelerator="shortcut+H">
 
                 </MenuItem>
 
@@ -44,7 +48,13 @@
 
                         </Label>
 
+                        <Label fx:id="label_Direction">
+
+                        </Label>
+
+
                     </VBox>
+
                     <Pane fx:id="pane" prefWidth="1000" prefHeight="700"/>
 
                 </HBox>

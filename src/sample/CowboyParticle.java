@@ -64,6 +64,8 @@ class CowboyParticle extends SingleParticle {
 
     void set_Ultimate(double v) {
         ultimate.set(v);
+        if (ultimate.getValue() > 100)
+            ultimate.set(100);
     }
 
 
