@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,8 +16,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.System.exit;
-
 public class Controller {
 
     @FXML
@@ -30,6 +29,10 @@ public class Controller {
     @FXML
     public Label label_Ennemis;
     @FXML
+    public Label label_Ennemis_Mort;
+    @FXML
+    public Label label_Direction;
+    @FXML
     Button button;
     @FXML
     ListView<String> listb;
@@ -37,6 +40,12 @@ public class Controller {
     Slider slider;
     @FXML
     Pane pane;
+
+    private AnimationTimer animationTimer;
+    private Integer ennemis_Mort = 0;
+    private CowboyParticle cowboy;
+    private ArrayList<SingleParticle> particles;
+
 
     @FXML
     public void initialize() {
@@ -50,7 +59,7 @@ public class Controller {
             nb = Integer.parseInt(getParameters().getRaw().get(0));
         }
 */
-        ArrayList<SingleParticle> particles = new ArrayList<SingleParticle>();
+        particles = new ArrayList<SingleParticle>();
 
         Random random = new Random(System.nanoTime());
 
@@ -87,13 +96,13 @@ public class Controller {
             pane.getChildren().add(particles.get(i));
         }
 
-        CowboyParticle cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
+        cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
 
         pane.getChildren().add(cowboy);
         /* AnimationTimer :  implementation de la méthode
          * handle(long now).  On applique juste la méthode
          * move() à chaque particule                    */
-        AnimationTimer timer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 for (SingleParticle p : particles) {
@@ -101,9 +110,7 @@ public class Controller {
                         p.move();
                 }
                 cowboy.move();
-
-
-                pane.getParent().getParent().setOnKeyPressed(event -> {
+                pane.getParent().getParent().getParent().setOnKeyPressed(event -> {
                     switch (event.getCode()) {
                         case Z:
                             cowboy.set_VY(-2);
@@ -123,7 +130,7 @@ public class Controller {
                     cowboy.faireRotation();
                 });
 
-                pane.getParent().getParent().setOnKeyReleased(event -> {
+                pane.getParent().getParent().getParent().setOnKeyReleased(event -> {
                     switch (event.getCode()) {
                         case Z:
                             cowboy.set_VY(0);
@@ -159,6 +166,8 @@ public class Controller {
                                 particles.get(j).setImage(null);
                                 particles.remove(j);
                                 j--;
+                                ennemis_Mort++;
+                                cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
                             } else if ((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) {
                                 Image image = ((i & 1) == 1) ? owl : cat;
                                 double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
@@ -190,6 +199,8 @@ public class Controller {
                 label_Munitions.setText("Munitions restantes : " + cowboy.get_Munitions());
                 label_Ultimate.setText("Ultimate chargé : " + cowboy.get_Ultimate());
                 label_Ennemis.setText("Ennemis restants : " + particles.size());
+//                label_Ennemis_Mort.setText("Ennemis morts : " + ennemis_Mort);
+                label_Direction.setText("Angle : " + cowboy.get_Degre());
             }
         };
 
@@ -200,18 +211,71 @@ public class Controller {
                     .multiply(1 / 0.3));
         }
 
-        timer.start();
+        animationTimer.start();
+
 
     }
 
 
     public void quitter(ActionEvent actionEvent) {
-        exit(0);
+        Platform.exit();
     }
 
     public void itsHighNoooooon(ActionEvent actionEvent) {
+        if (cowboy.get_Ultimate() >= 100) {
+            animationTimer.stop();
+            double cowboy_px = cowboy.getX();
+            double cowboy_py = cowboy.getY();
+            double cowboy_degree = cowboy.get_Degre();
+            /*0 cest le haut*/
+            /*90 cest a gauche */
+            /*180 cest en bas*/
+            /*270 cest a droite*/
+
+            for (int i = 0; i < particles.size(); i++) {
+                if (cowboy_degree == 0) {
+                    if (particles.get(i).getY() < cowboy_py) {
+                        particles.get(i).setImage(null);
+                        particles.remove(particles.get(i));
+                        i--;
+                        ennemis_Mort++;
+                    }
+                } else if (cowboy_degree == 180) {
+                    if (particles.get(i).getY() > cowboy_py) {
+                        particles.get(i).setImage(null);
+                        particles.remove(particles.get(i));
+                        ennemis_Mort++;
+                    }
+                } else if (cowboy_degree == 90) {
+                    if (particles.get(i).getX() < cowboy_px) {
+                        particles.get(i).setImage(null);
+                        particles.remove(particles.get(i));
+                        ennemis_Mort++;
+                    }
+                } else if (cowboy_degree == 270) {
+                    if (particles.get(i).getX() > cowboy_px) {
+                        particles.get(i).setImage(null);
+                        particles.remove(particles.get(i));
+                        ennemis_Mort++;
+                    }
+                } else {
+
+                }
+            }
+            cowboy.set_Ultimate(0);
+            animationTimer.start();
+        }
     }
 
-    public void save(ActionEvent actionEvent) {
+    public void pause(ActionEvent actionEvent) {
+        animationTimer.stop();
+    }
+
+    public void help(ActionEvent actionEvent) {
+    }
+
+    public void jouer(ActionEvent actionEvent) {
+        animationTimer.start();
     }
 }
+
