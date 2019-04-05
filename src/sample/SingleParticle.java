@@ -83,6 +83,7 @@ abstract class SingleParticle extends ImageView {
         }
         if (vx.getValue() < 0) {
             degrees += 180;
+            set_Degre(degrees);
         }
 
         setRotate(degrees);

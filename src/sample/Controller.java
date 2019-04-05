@@ -262,7 +262,7 @@ public class Controller {
 
                 }
             }
-
+            cowboy.set_Ultimate(0);
             animationTimer.start();
         }
     }
