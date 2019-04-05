@@ -30,19 +30,25 @@
                         <Insets top="10" bottom="10"
                                 left="10" right="10"/>
                     </padding>
-                    <VBox alignment="center" spacing="30">
-                        <Label fx:id="label">
+                    <VBox alignment="center" spacing="30" prefWidth="250">
+                        <Label fx:id="label_Vie">
 
                         </Label>
-                        <ListView orientation="horizontal"
+                        <Label fx:id="label_Munitions">
 
-                                  prefHeight="60" maxHeight="60"
-                                  fx:id="listb">
+                        </Label>
+                        <Label fx:id="label_Ultimate">
 
-                        </ListView>
+                        </Label>
+                        <Label fx:id="label_Ennemis">
+
+                        </Label>
+
+                        <Button text="Save" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                                fx:id="saveButton" onAction="#save"/>
 
                     </VBox>
-                    <Pane fx:id="pane" prefWidth="500" prefHeight="500"/>
+                    <Pane fx:id="pane" prefWidth="1000" prefHeight="700"/>
 
                 </HBox>
 
