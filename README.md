@@ -17,14 +17,15 @@ Implementer les balles
 ajouter les sprites de la balle
 gerer la sauvegarde
 ajout des obstacles (generation aléatoire)
+les touches a choisir pour les deplacements
 
 Billy :
 
 faire l'animation de l'ultimate
 gérer les sprites des demons
 gerer les comportements des demons (aléatoire, guidé, intelligent)
-
+gerer la fenetre avec tous les menus (menu d'aide, menu pour changer de touche, menu pour changer la difficulté, menu pour configurer le multijoueur, menu pour redemarrer une partie )
 
 A faire :
 
-
+multijoueur
