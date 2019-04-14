@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -50,7 +51,8 @@ public class Controller {
     @FXML
     public void initialize() {
 
-        int nb = 8; //nombre de particules
+        int nb = 16; //nombre de particules
+        double bulletSpeed = 10; //Vitesse des balles
 //nombre de particules, soit 8 soit donné en ligne de commande
         /*
         if (getParameters().getRaw().isEmpty()) {
@@ -112,19 +114,23 @@ public class Controller {
                 cowboy.move();
                 pane.getParent().getParent().getParent().setOnKeyPressed(event -> {
                     switch (event.getCode()) {
-                        case Z:
+                        case Y:
                             cowboy.set_VY(-2);
                             break;
-                        case S:
+                        case H:
                             cowboy.set_VY(2);
                             break;
-                        case Q:
+                        case G:
                             cowboy.set_VX(-2);
                             break;
-                        case D:
+                        case J:
                             cowboy.set_VX(2);
                             break;
-                        //case SHIFT: running = true; break;
+                        case F:
+                            URL url = getClass().getResource("ressources/Advanced_Sniper_Bullet-ConvertImage.png");
+                            Image image = new Image(url.toString());
+                            particles.add(new BulletParticle(image, cowboy.getX(), cowboy.getY(), bulletSpeed * Math.cos(Math.toRadians(cowboy.get_Degre() - 90)), bulletSpeed * Math.sin(Math.toRadians(cowboy.get_Degre() - 90)), null, 0.0, 1.0, 0.0, 0.0, -1));
+                            pane.getChildren().add(particles.get(particles.size() - 1));
                     }
 
                     cowboy.faireRotation();
@@ -132,18 +138,20 @@ public class Controller {
 
                 pane.getParent().getParent().getParent().setOnKeyReleased(event -> {
                     switch (event.getCode()) {
-                        case Z:
+                        case Y:
                             cowboy.set_VY(0);
                             break;
-                        case S:
+                        case H:
                             cowboy.set_VY(0);
                             break;
-                        case Q:
+                        case G:
                             cowboy.set_VX(0);
                             break;
-                        case D:
+                        case J:
                             cowboy.set_VX(0);
                             break;
+                        case F:
+
                         //case SHIFT: running = false; break;
                     }
 
@@ -162,7 +170,20 @@ public class Controller {
 
                         if (particles.get(i).getBoundsInParent()
                                 .intersects(particles.get(j).getBoundsInParent())) {
-                            if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
+                            if (particles.get(i) instanceof BulletParticle) {
+                                particles.get(j).setImage(null);
+                                particles.remove(j);
+                                j--;
+                                ennemis_Mort++;
+                                cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+                            }
+                            if (particles.get(j) instanceof BulletParticle) {
+                                particles.get(i).setImage(null);
+                                particles.remove(i);
+                                i--;
+                                ennemis_Mort++;
+                                cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+                            } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
                                 particles.get(j).setImage(null);
                                 particles.remove(j);
                                 j--;
@@ -219,6 +240,62 @@ public class Controller {
 
     public void quitter(ActionEvent actionEvent) {
         Platform.exit();
+    }
+
+    public void sauvegarder() {
+        ObjectOutputStream oos = null;
+        try {
+
+            final FileOutputStream fichier = new FileOutputStream("donnees.ser");
+            oos = new ObjectOutputStream(fichier);
+            System.out.println("l'angle du cowboy est " + cowboy.get_Degre());
+            oos.writeObject(cowboy);
+            oos.flush();
+
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                if (oos != null) {
+                    oos.flush();
+                    oos.close();
+                }
+
+            } catch (final IOException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+    }
+
+    public void charger() {
+        ObjectInputStream ois = null;
+
+        try {
+            final FileInputStream fichier = new FileInputStream("donnees.ser");
+            ois = new ObjectInputStream(fichier);
+            cowboy = (CowboyParticle) ois.readObject();
+            System.out.println("l'angle du cowboy est " + cowboy.get_Degre());
+
+            if (cowboy == null) {
+                System.out.println("Cowboy est nul");
+                Platform.exit();
+            }
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (final IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void itsHighNoooooon(ActionEvent actionEvent) {
