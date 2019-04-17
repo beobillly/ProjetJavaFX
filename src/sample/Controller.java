@@ -51,8 +51,11 @@ public class Controller {
     @FXML
     public void initialize() {
 
-        int nb = 16; //nombre de particules
+        int nb = 15; //nombre de particules ennemies
+        final int nbObstacles = 5;//nombre d'obstacles
         double bulletSpeed = 10; //Vitesse des balles
+        int nbEnnemisMax = 50; //nb d'ennemis maximal sur l'arene
+        int nbBallesVivantes = 0; //nombre de balles sur l'arene
 //nombre de particules, soit 8 soit donné en ligne de commande
         /*
         if (getParameters().getRaw().isEmpty()) {
@@ -66,8 +69,27 @@ public class Controller {
         Random random = new Random(System.nanoTime());
 
 
-        //créer les particules avex les images
-        URL url = getClass().getResource("ressources/cat.png");
+        //créer les particules obstacles avec les images
+        URL url = getClass().getResource("ressources/squareObstacle.png");
+        Image obstacleImage = new Image(url.toString());
+
+
+        //creer les particules obstacles
+        for (int i = 0; i < nbObstacles; i++) {
+
+            double px = random.nextDouble() * (pane.getPrefWidth() - obstacleImage.getWidth());
+            double py = random.nextDouble() * (pane.getPrefHeight() - obstacleImage.getHeight());
+
+            double vx = 8 * (random.nextDouble() - 0.5);
+            double vy = 8 * (random.nextDouble() - 0.5);
+
+            ObstacleParticle obsPart = new ObstacleParticle(obstacleImage, px, py);
+            particles.add(obsPart);
+            pane.getChildren().add(obsPart);
+        }
+
+        //créer les particules ennemies avec les images
+        url = getClass().getResource("ressources/cat.png");
         Image cat = new Image(url.toString());
         url = getClass().getResource("ressources/owl.png");
         Image owl = new Image(url.toString());
@@ -77,26 +99,59 @@ public class Controller {
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
 
-//creer les particules
+        Image image = owl;
+
+        //creer les particules
         for (int i = 0; i < nb; i++) {
 
 
-            //utiliser soit l'image d'un hibou soit
-            //l'image d'un chat
-            Image image = ((i & 1) == 1) ? owl : cat;
-            double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
-            double py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
+            double px;
+            double py;
 
-            double vx = 8 * (random.nextDouble() - 0.5);
-            double vy = 8 * (random.nextDouble() - 0.5);
-            double genre = random.nextDouble() * 100;
-            //particles[i] = new SingleParticle(image, px, py,
-            //        vx, vy,audioClip, 0.0, 1.0);
+            double vx;
+            double vy;
 
-            particles.add(new DemonParticle(image, px, py,
-                    vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre));
-            pane.getChildren().add(particles.get(i));
+            double genre;
+
+            boolean pass;
+
+            //On vérifie qu'on invoque pas le monstre dans un obstacle.
+            do {
+
+                pass = true;
+                px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
+                py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
+
+                for (int n = 0; n < nbObstacles; n++) {
+                    if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth()) {
+                        pass = false;
+                        break;
+                    }
+                    if (Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight()) {
+                        pass = false;
+                        break;
+                    }
+                }
+
+            } while (!pass);
+
+
+            vx = 8 * (random.nextDouble() - 0.5);
+            vy = 8 * (random.nextDouble() - 0.5);
+            genre = random.nextDouble() * 100;
+
+            if (genre < 50) {
+                image = cat;
+            } else {
+                image = owl;
+            }
+
+            DemonParticle dP = new DemonParticle(image, px, py,
+                    vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre);
+            particles.add(dP);
+            pane.getChildren().add(dP);
         }
+
 
         cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
 
@@ -113,17 +168,19 @@ public class Controller {
                 }
                 cowboy.move();
                 pane.getParent().getParent().getParent().setOnKeyPressed(event -> {
+
+
                     switch (event.getCode()) {
-                        case Y:
+                        case W:
                             cowboy.set_VY(-2);
                             break;
-                        case H:
+                        case S:
                             cowboy.set_VY(2);
                             break;
-                        case G:
+                        case A:
                             cowboy.set_VX(-2);
                             break;
-                        case J:
+                        case D:
                             cowboy.set_VX(2);
                             break;
                         case F:
@@ -138,16 +195,16 @@ public class Controller {
 
                 pane.getParent().getParent().getParent().setOnKeyReleased(event -> {
                     switch (event.getCode()) {
-                        case Y:
+                        case W:
                             cowboy.set_VY(0);
                             break;
-                        case H:
+                        case S:
                             cowboy.set_VY(0);
                             break;
-                        case G:
+                        case A:
                             cowboy.set_VX(0);
                             break;
-                        case J:
+                        case D:
                             cowboy.set_VX(0);
                             break;
                         case F:
@@ -170,6 +227,40 @@ public class Controller {
 
                         if (particles.get(i).getBoundsInParent()
                                 .intersects(particles.get(j).getBoundsInParent())) {
+
+                            if (particles.get(i) instanceof ObstacleParticle) {
+                                double diffX = Math.abs(particles.get(j).getX() - particles.get(i).getX());
+                                double diffY = Math.abs(particles.get(j).getY() - particles.get(i).getY());
+
+                                if (diffY >= diffX) {
+                                    particles.get(j).set_VY(-particles.get(j).get_VY());
+                                }
+
+                                if (diffX >= diffY) {
+                                    particles.get(j).set_VX(-particles.get(j).get_VX());
+                                }
+
+                                particles.get(j).faireRotation();
+                                continue;
+                            }
+
+                            if (particles.get(j) instanceof ObstacleParticle) {
+
+                                double diffX = Math.abs(particles.get(j).getX() - particles.get(i).getX());
+                                double diffY = Math.abs(particles.get(j).getY() - particles.get(i).getY());
+
+                                if (diffY >= diffX) {
+                                    particles.get(i).set_VY(-particles.get(i).get_VY());
+                                }
+
+                                if (diffX >= diffY) {
+                                    particles.get(i).set_VX(-particles.get(i).get_VX());
+                                }
+
+                                particles.get(i).faireRotation();
+                                continue;
+                            }
+
                             if (particles.get(i) instanceof BulletParticle) {
                                 particles.get(j).setImage(null);
                                 particles.remove(j);
@@ -183,20 +274,52 @@ public class Controller {
                                 i--;
                                 ennemis_Mort++;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+
                             } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
+
                                 particles.get(j).setImage(null);
                                 particles.remove(j);
                                 j--;
                                 ennemis_Mort++;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
-                            } else if ((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) {
-                                Image image = ((i & 1) == 1) ? owl : cat;
-                                double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
-                                double py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
 
-                                double vx = 8 * (random.nextDouble() - 0.5);
-                                double vy = 8 * (random.nextDouble() - 0.5);
-                                double genre = random.nextDouble() % 100;
+                            } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles - nbBallesVivantes) < nbEnnemisMax) {
+
+                                Image image = ((i & 1) == 1) ? owl : cat;
+                                double px;
+                                double py;
+
+                                double vx;
+                                double vy;
+
+                                double genre;
+
+                                boolean pass;
+
+                                do {
+
+                                    pass = true;
+                                    px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
+                                    py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
+
+                                    for (int n = 0; n < nbObstacles; n++) {
+                                        if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth()) {
+                                            pass = false;
+                                            break;
+                                        }
+                                        if (Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight()) {
+                                            pass = false;
+                                            break;
+                                        }
+                                    }
+
+                                } while (!pass);
+
+
+                                vx = 8 * (random.nextDouble() - 0.5);
+                                vy = 8 * (random.nextDouble() - 0.5);
+                                genre = random.nextDouble() * 100;
+
                                 particles.add(new DemonParticle(image, px, py,
                                         vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre));
 
@@ -216,10 +339,11 @@ public class Controller {
                     }
                 }
 
+
                 label_Vie.setText("Vies restantes : " + cowboy.get_Vie());
                 label_Munitions.setText("Munitions restantes : " + cowboy.get_Munitions());
                 label_Ultimate.setText("Ultimate chargé : " + cowboy.get_Ultimate());
-                label_Ennemis.setText("Ennemis restants : " + particles.size());
+                label_Ennemis.setText("Ennemis restants : " + (particles.size() - nbObstacles - nbBallesVivantes));
 //                label_Ennemis_Mort.setText("Ennemis morts : " + ennemis_Mort);
                 label_Direction.setText("Angle : " + cowboy.get_Degre());
             }

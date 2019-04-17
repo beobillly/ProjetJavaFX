@@ -1,24 +1,27 @@
 package sample;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 
-abstract class SingleParticle extends ImageView {
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+abstract class SingleParticle extends ImageView implements Serializable {
 
 
     /*audioClip à jouer si on cogne sur les parois de parent*/
-    final AudioClip audio;
+    transient final AudioClip audio;
 
-    final DoubleProperty vx = new SimpleDoubleProperty();
-    final DoubleProperty vy = new SimpleDoubleProperty();
-    final DoubleProperty mass = new SimpleDoubleProperty(1.0);
+    final DoubleProperty vx = new SerializableSimpleDoubleProperty();
+    final DoubleProperty vy = new SerializableSimpleDoubleProperty();
+    final DoubleProperty mass = new SerializableSimpleDoubleProperty(1.0);
 
-    final DoubleProperty degre = new SimpleDoubleProperty(0.0);
-    final DoubleProperty movex = new SimpleDoubleProperty();
-    final DoubleProperty movey = new SimpleDoubleProperty();
+    final DoubleProperty degre = new SerializableSimpleDoubleProperty(0.0);
+
     /*  ax,ay - l'axe de personnage.
         Si le personnage a la face tourné en bas alors
          (ax,ay)=(0.0,1.0)
@@ -29,15 +32,12 @@ abstract class SingleParticle extends ImageView {
         Si le personnage a la face tournée à droite alors
           (ax,ay)=(-1.0,0.0)
     */
-    final DoubleProperty ax = new SimpleDoubleProperty();
-    final DoubleProperty ay = new SimpleDoubleProperty();
-
-    final DoubleProperty genre = new SimpleDoubleProperty();
-
+    final DoubleProperty ax = new SerializableSimpleDoubleProperty();
+    final DoubleProperty ay = new SerializableSimpleDoubleProperty();
+    final DoubleProperty genre = new SerializableSimpleDoubleProperty();
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
-    final DoubleProperty rate = new SimpleDoubleProperty(0.1);
-
+    final DoubleProperty rate = new SerializableSimpleDoubleProperty(0.1);
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),
        - (x,y) la position initiale de l'objet
@@ -51,6 +51,35 @@ abstract class SingleParticle extends ImageView {
 
     */
 
+    protected void writeObjectGen(ObjectOutputStream oos) throws IOException {
+        oos.writeDouble(getX());
+        oos.writeDouble(getY());
+        oos.writeDouble(get_VX());
+        oos.writeDouble(get_VY());
+        oos.writeDouble(get_AX());
+        oos.writeDouble(get_AY());
+        oos.writeDouble(get_Degre());
+        oos.writeDouble(get_Genre());
+        oos.writeDouble(get_Mass());
+        oos.writeDouble(get_Rate());
+    }
+
+    protected void readObjectGen(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+
+        setX(ois.readDouble());
+        setY(ois.readDouble());
+        set_VX(ois.readDouble());
+        set_VY(ois.readDouble());
+        set_AX(ois.readDouble());
+        set_AY(ois.readDouble());
+        set_Degre(ois.readDouble());
+        set_Genre(ois.readDouble());
+        set_Mass(ois.readDouble());
+        set_Rate(ois.readDouble());
+    }
+
+
     SingleParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
                    double ax, double ay, double movex, double movey, double genre) {
@@ -62,8 +91,6 @@ abstract class SingleParticle extends ImageView {
         this.audio = audioClip;
         set_AX(ax);
         set_AY(ay);
-        set_MoveX(movex);
-        set_MoveY(movey);
         set_Genre(genre);
         faireRotation();
     }
@@ -121,13 +148,7 @@ abstract class SingleParticle extends ImageView {
         return rate;
     }
 
-    double get_MoveX() {
-        return movex.getValue();
-    }
 
-    void set_MoveX(double v) {
-        movex.set(v);
-    }
 
     double get_Degre() {
         return degre.getValue();
@@ -143,14 +164,6 @@ abstract class SingleParticle extends ImageView {
 
     void set_Genre(double v) {
         genre.set(v);
-    }
-
-    double get_MoveY() {
-        return movey.getValue();
-    }
-
-    void set_MoveY(double v) {
-        movey.set(v);
     }
 
     double get_VX() {
@@ -219,6 +232,7 @@ abstract class SingleParticle extends ImageView {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     abstract void move();
+
 
 }
 

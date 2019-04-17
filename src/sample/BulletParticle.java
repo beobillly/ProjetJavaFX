@@ -69,4 +69,7 @@ public class BulletParticle extends SingleParticle {
         }
     }
 
+    public String toString() {
+        return "balle";
+    }
 }

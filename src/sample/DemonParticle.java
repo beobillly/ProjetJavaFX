@@ -86,5 +86,8 @@ class DemonParticle extends SingleParticle {
         }
     }
 
+    public String toString() {
+        return "demon";
+    }
 }
 

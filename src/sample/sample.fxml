@@ -51,6 +51,12 @@
                         <Label fx:id="label_Direction">
 
                         </Label>
+                        <Button text="Save" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                                fx:id="saveButton" onAction="#sauvegarder">
+                        </Button>
+                        <Button text="load" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                                fx:id="loadButton" onAction="#charger">
+                        </Button>
 
 
                     </VBox>
@@ -63,8 +69,8 @@
                 <FlowPane orientation="horizontal"
                           alignment="BOTTOM_CENTER" hgap="10">
 
-                    <Button text="Ultimate" alignment="center" prefWidth="80.0" prefHeight="80.0"
-                            fx:id="button" onAction="#itsHighNoooooon">
+                    <Button text="Ultimate" prefWidth="120.0" prefHeight="80.0"
+                            fx:id="ultButton" onAction="#itsHighNoooooon">
                     </Button>
                 </FlowPane>
 
