@@ -21,7 +21,7 @@
                 </MenuItem>
                 <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+C">
                 </MenuItem>
-                <MenuItem text="Changer le background" onAction="#backgroung" accelerator="shortcut+B">
+                <MenuItem text="Changer le background" onAction="#background" accelerator="shortcut+B">
                 </MenuItem>
                 <MenuItem text="Changer la difficulté" onAction="#difficute" accelerator="shortcut+D">
                 </MenuItem>

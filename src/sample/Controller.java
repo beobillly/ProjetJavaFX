@@ -4,6 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -13,6 +16,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
@@ -44,7 +48,7 @@ public class Controller {
     @FXML
     Pane pane;
 
-    private AnimationTimer animationTimer;
+    protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
     private CowboyParticle cowboy;
     private ArrayList<SingleParticle> particles;
@@ -54,12 +58,22 @@ public class Controller {
     private int nbEnnemisCourant = nb; //nombre d'ennemis sur l'arene;
     private double bulletSpeed = 10; //Vitesse des balles
     private int nbEnnemisMax = 35; //nb d'ennemis maximal sur l'arene
-
+    protected Stage fenetre_help = new Stage();
 
 
     @FXML
     public void initialize() {
 
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass()
+                    .getResource("help.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        fenetre_help.setTitle("HELP");
+        assert root != null;
+        fenetre_help.setScene(new Scene(root, 700, 400));
 
 //nombre de particules, soit 8 soit donné en ligne de commande
         /*
@@ -503,23 +517,23 @@ public class Controller {
         animationTimer.stop();
     }
 
-    public void help(ActionEvent actionEvent) {
+    public void help(ActionEvent actionEvent) throws IOException {
+        animationTimer.stop();
+        fenetre_help.show();
     }
 
     public void jouer(ActionEvent actionEvent) {
         animationTimer.start();
     }
 
-    public void relancer(ActionEvent actionEvent) {
-    }
 
-    public void sauvegarder(ActionEvent actionEvent) {
+    public void relancer(ActionEvent actionEvent) {
     }
 
     public void controle(ActionEvent actionEvent) {
     }
 
-    public void backgroung(ActionEvent actionEvent) {
+    public void background(ActionEvent actionEvent) {
     }
 
     public void difficute(ActionEvent actionEvent) {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="sample.Help"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <MenuBar useSystemMenuBar="true">
+            <Menu text="Fichier">
+                <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
+                </MenuItem>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox alignment="center">
+            <padding>
+                <Insets left="10" right="10" top="10" bottom="10"/>
+            </padding>
+            <children>
+                <Label fx:id="label_help">
+                </Label>
+
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox alignment="center">
+            <padding>
+                <Insets left="10" right="10" top="10" bottom="10"/>
+            </padding>
+            <children>
+                <Button text="J'ai compris !" alignment="CENTER" prefWidth="120.0" prefHeight="20.0"
+                        fx:id="loadButton" onAction="#fermerHelp"/>
+            </children>
+        </VBox>
+
+    </bottom>
+
+</BorderPane>
