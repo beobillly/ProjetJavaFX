@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="ajout de l'ultimate">
-      <change afterPath="$PROJECT_DIR$/src/sample/ressources/soldat.png" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="merge sympa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DemonParticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DemonParticle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ressources/._1967.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ressources/._Mite-48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ressources/._cat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ressources/._owl.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,10 +75,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+            <state relative-caret-position="470">
+              <caret line="463" column="46" selection-start-line="463" selection-start-column="46" selection-end-line="463" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5634#15160#0" expanded="true" />
+                <element signature="e#15159#15160#0" expanded="true" />
+                <element signature="e#15919#15920#0" expanded="true" />
+                <element signature="e#15950#15951#0" expanded="true" />
+                <element signature="e#19414#19415#0" expanded="true" />
+                <element signature="e#19451#19452#0" expanded="true" />
+                <element signature="e#19556#19557#0" expanded="true" />
+                <element signature="e#19594#19595#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/SingleParticle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1491">
-              <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+            <state relative-caret-position="2121">
+              <caret line="102" column="6" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -113,7 +114,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/DemonParticle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1344">
-              <caret line="66" column="24" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
+              <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,18 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/CowboyParticle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
-              <caret line="55" selection-start-line="55" selection-end-line="55" />
-              <folding>
-                <element signature="e#1468#1469#0" expanded="true" />
-                <element signature="e#1511#1512#0" expanded="true" />
-                <element signature="e#1603#1604#0" expanded="true" />
-                <element signature="e#1640#1641#0" expanded="true" />
-                <element signature="e#1670#1671#0" expanded="true" />
-                <element signature="e#1696#1697#0" expanded="true" />
-                <element signature="e#1725#1726#0" expanded="true" />
-                <element signature="e#1767#1768#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1449">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
             </state>
           </provider>
         </entry>
@@ -143,8 +134,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1659">
-              <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
+            <state relative-caret-position="1743">
+              <caret line="85" column="51" selection-start-line="85" selection-start-column="51" selection-end-line="85" selection-end-column="51" />
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -212,8 +203,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,6 +237,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -471,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554467161236</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="merge sympa">
+      <created>1555676585810</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1555676585810</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -490,7 +488,7 @@
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21566524" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21888413" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -499,7 +497,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -573,7 +571,8 @@
     <MESSAGE value="Version de base" />
     <MESSAGE value="separation des particules" />
     <MESSAGE value="ajout de l'ultimate" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout de l'ultimate" />
+    <MESSAGE value="merge sympa" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge sympa" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -622,15 +621,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/SingleParticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1491">
-          <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+        <state relative-caret-position="2121">
+          <caret line="102" column="6" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/DemonParticle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1344">
-          <caret line="66" column="24" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
+          <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -639,35 +638,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/CowboyParticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-          <folding>
-            <element signature="e#1468#1469#0" expanded="true" />
-            <element signature="e#1511#1512#0" expanded="true" />
-            <element signature="e#1603#1604#0" expanded="true" />
-            <element signature="e#1640#1641#0" expanded="true" />
-            <element signature="e#1670#1671#0" expanded="true" />
-            <element signature="e#1696#1697#0" expanded="true" />
-            <element signature="e#1725#1726#0" expanded="true" />
-            <element signature="e#1767#1768#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1449">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1659">
-          <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
+        <state relative-caret-position="1743">
+          <caret line="85" column="51" selection-start-line="85" selection-start-column="51" selection-end-line="85" selection-end-column="51" />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+        <state relative-caret-position="470">
+          <caret line="463" column="46" selection-start-line="463" selection-start-column="46" selection-end-line="463" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5634#15160#0" expanded="true" />
+            <element signature="e#15159#15160#0" expanded="true" />
+            <element signature="e#15919#15920#0" expanded="true" />
+            <element signature="e#15950#15951#0" expanded="true" />
+            <element signature="e#19414#19415#0" expanded="true" />
+            <element signature="e#19451#19452#0" expanded="true" />
+            <element signature="e#19556#19557#0" expanded="true" />
+            <element signature="e#19594#19595#0" expanded="true" />
           </folding>
         </state>
       </provider>

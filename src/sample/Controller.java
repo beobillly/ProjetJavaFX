@@ -48,7 +48,7 @@ public class Controller {
     private Integer ennemis_Mort = 0;
     private CowboyParticle cowboy;
     private ArrayList<SingleParticle> particles;
-
+    private ArrayList<Image> fond_ecran;
 
     @FXML
     public void initialize() {
@@ -67,7 +67,7 @@ public class Controller {
         }
 */
         particles = new ArrayList<SingleParticle>();
-
+        fond_ecran = new ArrayList<Image>();
         Random random = new Random(System.nanoTime());
 
 
@@ -81,6 +81,19 @@ public class Controller {
         Image demon_m = new Image(url.toString());
         url = getClass().getResource("ressources/soldat.png");
         Image soldat = new Image(url.toString());
+
+        url = getClass().getResource("ressources/ciel.jpg");
+        Image ciel = new Image(url.toString());
+        fond_ecran.add(ciel);
+        url = getClass().getResource("ressources/desert.jpg");
+        Image desert = new Image(url.toString());
+        fond_ecran.add(desert);
+        url = getClass().getResource("ressources/lave.jpg");
+        Image lave = new Image(url.toString());
+        fond_ecran.add(lave);
+        url = getClass().getResource("ressources/terre.jpg");
+        Image terre = new Image(url.toString());
+        fond_ecran.add(terre);
 
 //creer les particules obstacles
         for (int i = 0; i < nbObstacles; i++) {
@@ -97,7 +110,7 @@ public class Controller {
         }
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
-        pane.setBackground(new Background(new BackgroundImage(obstacleImage, null, null, null, null)));
+        pane.setBackground(new Background(new BackgroundImage(lave, null, null, null, null)));
 
 //creer les particules
         for (int i = 0; i < nb; i++) {
@@ -207,7 +220,7 @@ public class Controller {
                             break;
                         case F:
 
-                        //case SHIFT: running = false; break;
+                            //case SHIFT: running = false; break;
                     }
 
 
@@ -280,14 +293,6 @@ public class Controller {
                                 j--;
                                 ennemis_Mort++;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
-                            } else if ((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) {
-                                boolean b = ((i & 1) == 1);
-                                Image image = b ? demon_f : demon_m;
-                                double genre = b ? 90 : 25;
-
-                                double px = random.nextDouble() * (pane.getPrefWidth() / 2 - image.getWidth());
-                                double py = random.nextDouble() * (pane.getPrefHeight() / 2 - image.getHeight());
-
                             } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles - nbBallesVivantes) < nbEnnemisMax) {
 
                                 Image image = ((i & 1) == 1) ? demon_m : demon_f;
@@ -450,13 +455,13 @@ public class Controller {
                         particles.remove(particles.get(i));
                         ennemis_Mort++;
                     }
-                } else if (cowboy_degree == 90) {
+                } else if (cowboy_degree == 270) {
                     if (particles.get(i).getX() < cowboy_px) {
                         particles.get(i).setImage(null);
                         particles.remove(particles.get(i));
                         ennemis_Mort++;
                     }
-                } else if (cowboy_degree == 270) {
+                } else if (cowboy_degree == 90) {
                     if (particles.get(i).getX() > cowboy_px) {
                         particles.get(i).setImage(null);
                         particles.remove(particles.get(i));
