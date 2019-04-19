@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
@@ -75,8 +77,16 @@ public class Controller {
         URL url = getClass().getResource("ressources/squareObstacle.png");
         Image obstacleImage = new Image(url.toString());
 
+        url = getClass().getResource("ressources/demon_f.png");
+        Image demon_f = new Image(url.toString());
+        url = getClass().getResource("ressources/demon_m.png");
+        Image demon_m = new Image(url.toString());
+        url = getClass().getResource("ressources/soldat.png");
+        Image soldat = new Image(url.toString());
+        url = getClass().getResource("ressources/carreBlanc.jpg");
+        Image carreBlanc = new Image(url.toString());
 
-        //creer les particules obstacles
+//creer les particules obstacles
         for (int i = 0; i < nbObstacles; i++) {
 
             double px = random.nextDouble() * (pane.getPrefWidth() - obstacleImage.getWidth());
@@ -89,31 +99,19 @@ public class Controller {
             particles.add(obsPart);
             pane.getChildren().add(obsPart);
         }
-
-        //créer les particules ennemies avec les images
-        url = getClass().getResource("ressources/cat.png");
-        Image cat = new Image(url.toString());
-        url = getClass().getResource("ressources/owl.png");
-        Image owl = new Image(url.toString());
-        url = getClass().getResource("ressources/Mite-48.png");
-        Image mite = new Image(url.toString());
-
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
+        pane.setBackground(new Background(new BackgroundImage(carreBlanc, null, null, null, null)));
 
-        Image image = owl;
-
-        //creer les particules
+//creer les particules
         for (int i = 0; i < nb; i++) {
 
 
-            double px;
-            double py;
-
-            double vx;
-            double vy;
-
-            double genre;
+            boolean b = ((i & 1) == 1);
+            Image image = b ? demon_f : demon_m;
+            double genre = b ? 90 : 25;
+            double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
+            double py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
 
             boolean pass;
 
@@ -137,15 +135,17 @@ public class Controller {
 
             } while (!pass);
 
+            double vx = 8 * (random.nextDouble() - 0.5);
+            double vy = 8 * (random.nextDouble() - 0.5);
+            //particles[i] = new SingleParticle(image, px, py,
+            //        vx, vy,audioClip, 0.0, 1.0);
 
-            vx = 8 * (random.nextDouble() - 0.5);
-            vy = 8 * (random.nextDouble() - 0.5);
             genre = random.nextDouble() * 100;
 
             if (genre < 50) {
-                image = cat;
+                image = demon_m;
             } else {
-                image = owl;
+                image = demon_f;
             }
 
             DemonParticle dP = new DemonParticle(image, px, py,
@@ -155,7 +155,7 @@ public class Controller {
         }
 
 
-        cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
+        cowboy = new CowboyParticle(soldat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
 
         pane.getChildren().add(cowboy);
         /* AnimationTimer :  implementation de la méthode
@@ -265,26 +265,30 @@ public class Controller {
 
                             if (particles.get(i) instanceof BulletParticle) {
 
-                                particles.get(j).setImage(null);
-                                particles.remove(j);
-                                j--;
                                 if (particles.get(j) instanceof DemonParticle) {
 
                                     ennemis_Mort++;
                                     nbEnnemisCourant--;
                                     cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
                                 }
+
+                                particles.get(j).setImage(null);
+                                particles.remove(j);
+                                j--;
+
                             }
                             if (particles.get(j) instanceof BulletParticle) {
-                                particles.get(i).setImage(null);
-                                particles.remove(i);
-                                i--;
+
                                 if (particles.get(i) instanceof DemonParticle) {
 
                                     ennemis_Mort++;
                                     nbEnnemisCourant--;
                                     cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
                                 }
+
+                                particles.get(i).setImage(null);
+                                particles.remove(i);
+                                i--;
 
 
                             } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
@@ -295,15 +299,23 @@ public class Controller {
                                 ennemis_Mort++;
                                 nbEnnemisCourant--;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+                            } else if ((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) {
+                                boolean b = ((i & 1) == 1);
+                                Image image = b ? demon_f : demon_m;
+                                double genre = b ? 90 : 25;
+
+                                double px = random.nextDouble() * (pane.getPrefWidth() / 2 - image.getWidth());
+                                double py = random.nextDouble() * (pane.getPrefHeight() / 2 - image.getHeight());
 
                             } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && nbEnnemisCourant < nbEnnemisMax) {
 
-                                Image image = ((i & 1) == 1) ? owl : cat;
+                                Image image = ((i & 1) == 1) ? demon_m : demon_f;
                                 double px;
                                 double py;
 
-                                double vx;
-                                double vy;
+                                double vx = 8 * (random.nextDouble() - 0.5);
+                                double vy = 8 * (random.nextDouble() - 0.5);
+
 
                                 double genre;
                                 boolean pass;
@@ -327,9 +339,6 @@ public class Controller {
 
                                 } while (!pass);
 
-
-                                vx = 8 * (random.nextDouble() - 0.5);
-                                vy = 8 * (random.nextDouble() - 0.5);
                                 genre = random.nextDouble() * 100;
 
                                 particles.add(new DemonParticle(image, px, py,
@@ -494,6 +503,27 @@ public class Controller {
 
     public void jouer(ActionEvent actionEvent) {
         animationTimer.start();
+    }
+
+    public void relancer(ActionEvent actionEvent) {
+    }
+
+    public void sauvegarder(ActionEvent actionEvent) {
+    }
+
+    public void controle(ActionEvent actionEvent) {
+    }
+
+    public void backgroung(ActionEvent actionEvent) {
+    }
+
+    public void difficute(ActionEvent actionEvent) {
+    }
+
+    public void createPlayer(ActionEvent actionEvent) {
+    }
+
+    public void removePlayer(ActionEvent actionEvent) {
     }
 }
 
