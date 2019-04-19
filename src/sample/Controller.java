@@ -49,15 +49,18 @@ public class Controller {
     private CowboyParticle cowboy;
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
+    private final int nbObstacles = 5;//nombre d'obstacles
+    private int nb = 8; //nombre de particules ennemies
+    private int nbEnnemisCourant = nb; //nombre d'ennemis sur l'arene;
+    private double bulletSpeed = 10; //Vitesse des balles
+    private int nbEnnemisMax = 35; //nb d'ennemis maximal sur l'arene
+
+
 
     @FXML
     public void initialize() {
 
-        int nb = 15; //nombre de particules ennemies
-        final int nbObstacles = 5;//nombre d'obstacles
-        double bulletSpeed = 10; //Vitesse des balles
-        int nbEnnemisMax = 50; //nb d'ennemis maximal sur l'arene
-        int nbBallesVivantes = 0; //nombre de balles sur l'arene
+
 //nombre de particules, soit 8 soit donné en ligne de commande
         /*
         if (getParameters().getRaw().isEmpty()) {
@@ -273,18 +276,32 @@ public class Controller {
                             }
 
                             if (particles.get(i) instanceof BulletParticle) {
+
+                                if (particles.get(j) instanceof DemonParticle) {
+
+                                    ennemis_Mort++;
+                                    nbEnnemisCourant--;
+                                    cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+                                }
+
                                 particles.get(j).setImage(null);
                                 particles.remove(j);
                                 j--;
-                                ennemis_Mort++;
-                                cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+
                             }
                             if (particles.get(j) instanceof BulletParticle) {
+
+                                if (particles.get(i) instanceof DemonParticle) {
+
+                                    ennemis_Mort++;
+                                    nbEnnemisCourant--;
+                                    cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+                                }
+
                                 particles.get(i).setImage(null);
                                 particles.remove(i);
                                 i--;
-                                ennemis_Mort++;
-                                cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+
 
                             } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
 
@@ -292,6 +309,7 @@ public class Controller {
                                 particles.remove(j);
                                 j--;
                                 ennemis_Mort++;
+                                nbEnnemisCourant--;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
                             } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles - nbBallesVivantes) < nbEnnemisMax) {
 
@@ -335,6 +353,7 @@ public class Controller {
                                 particles.get(i).set_VX(-particles.get(i).get_VX());
                                 particles.get(i).set_VY(-particles.get(i).get_VY());
                                 particles.get(i).faireRotation();
+                                nbEnnemisCourant++;
 
                                 particles.get(j).set_VX(-particles.get(j).get_VX());
                                 particles.get(j).set_VY(-particles.get(j).get_VY());
@@ -351,7 +370,7 @@ public class Controller {
                 label_Vie.setText("Vies restantes : " + cowboy.get_Vie());
                 label_Munitions.setText("Munitions restantes : " + cowboy.get_Munitions());
                 label_Ultimate.setText("Ultimate chargé : " + cowboy.get_Ultimate());
-                label_Ennemis.setText("Ennemis restants : " + (particles.size() - nbObstacles - nbBallesVivantes));
+                label_Ennemis.setText("Ennemis restants : " + (nbEnnemisCourant));
 //                label_Ennemis_Mort.setText("Ennemis morts : " + ennemis_Mort);
                 label_Direction.setText("Angle : " + cowboy.get_Degre());
             }
@@ -448,24 +467,28 @@ public class Controller {
                         particles.remove(particles.get(i));
                         i--;
                         ennemis_Mort++;
+                        nbEnnemisCourant--;
                     }
                 } else if (cowboy_degree == 180) {
                     if (particles.get(i).getY() > cowboy_py) {
                         particles.get(i).setImage(null);
                         particles.remove(particles.get(i));
                         ennemis_Mort++;
+                        nbEnnemisCourant--;
                     }
                 } else if (cowboy_degree == 270) {
                     if (particles.get(i).getX() < cowboy_px) {
                         particles.get(i).setImage(null);
                         particles.remove(particles.get(i));
                         ennemis_Mort++;
+                        nbEnnemisCourant--;
                     }
                 } else if (cowboy_degree == 90) {
                     if (particles.get(i).getX() > cowboy_px) {
                         particles.get(i).setImage(null);
                         particles.remove(particles.get(i));
                         ennemis_Mort++;
+                        nbEnnemisCourant--;
                     }
                 } else {
 
