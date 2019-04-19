@@ -6,15 +6,37 @@
     <top>
         <MenuBar useSystemMenuBar="true">
             <Menu text="Fichier">
-                <MenuItem text="Jouer" onAction="#jouer" accelerator="shortcut+J">
+                <MenuItem text="Recommencer" onAction="#relancer" accelerator="shortcut+R">
                 </MenuItem>
-                <MenuItem text="Pause" onAction="#pause" accelerator="shortcut+P">
+                <MenuItem text="Sauvegarder" onAction="#sauvegarder" accelerator="shortcut+S">
                 </MenuItem>
                 <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
                 </MenuItem>
 
+            </Menu>
+            <Menu text="Options">
+                <MenuItem text="Jouer" onAction="#jouer" accelerator="shortcut+J">
+                </MenuItem>
+                <MenuItem text="Pause" onAction="#pause" accelerator="shortcut+P">
+                </MenuItem>
+                <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+C">
+                </MenuItem>
+                <MenuItem text="Changer le background" onAction="#backgroung" accelerator="shortcut+B">
+                </MenuItem>
+                <MenuItem text="Changer la difficulté" onAction="#difficute" accelerator="shortcut+D">
+                </MenuItem>
 
             </Menu>
+
+            <Menu text="Multijoueur">
+                <MenuItem text="Ajouter un joueur" onAction="#createPlayer" accelerator="shortcut+H">
+                </MenuItem>
+                <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+H">
+                </MenuItem>
+                <MenuItem text="Enlever un joueur" onAction="#removePlayer" accelerator="shortcut+H">
+                </MenuItem>
+            </Menu>
+
             <Menu text="Aide">
                 <MenuItem text="Afficher l'aide" onAction="#help" accelerator="shortcut+H">
 
@@ -55,7 +77,7 @@
 
                     </VBox>
 
-                    <Pane fx:id="pane" prefWidth="1000" prefHeight="700"/>
+                    <Pane fx:id="pane" prefWidth="900" prefHeight="700"/>
 
                 </HBox>
 

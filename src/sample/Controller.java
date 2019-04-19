@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
@@ -50,7 +52,7 @@ public class Controller {
     @FXML
     public void initialize() {
 
-        int nb = 8; //nombre de particules
+        int nb = 3; //nombre de particules
 //nombre de particules, soit 8 soit donné en ligne de commande
         /*
         if (getParameters().getRaw().isEmpty()) {
@@ -63,31 +65,31 @@ public class Controller {
 
         Random random = new Random(System.nanoTime());
 
-
         //créer les particules avex les images
-        URL url = getClass().getResource("ressources/cat.png");
-        Image cat = new Image(url.toString());
+        URL url = getClass().getResource("ressources/demon_f.png");
+        Image demon_f = new Image(url.toString());
+        url = getClass().getResource("ressources/demon_m.png");
+        Image demon_m = new Image(url.toString());
+        url = getClass().getResource("ressources/soldat.png");
+        Image soldat = new Image(url.toString());
         url = getClass().getResource("ressources/owl.png");
         Image owl = new Image(url.toString());
-        url = getClass().getResource("ressources/Mite-48.png");
-        Image mite = new Image(url.toString());
-
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
+        pane.setBackground(new Background(new BackgroundImage(owl, null, null, null, null)));
 
 //creer les particules
         for (int i = 0; i < nb; i++) {
 
 
-            //utiliser soit l'image d'un hibou soit
-            //l'image d'un chat
-            Image image = ((i & 1) == 1) ? owl : cat;
+            boolean b = ((i & 1) == 1);
+            Image image = b ? demon_f : demon_m;
+            double genre = b ? 90 : 25;
             double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
             double py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
 
             double vx = 8 * (random.nextDouble() - 0.5);
             double vy = 8 * (random.nextDouble() - 0.5);
-            double genre = random.nextDouble() * 100;
             //particles[i] = new SingleParticle(image, px, py,
             //        vx, vy,audioClip, 0.0, 1.0);
 
@@ -96,7 +98,7 @@ public class Controller {
             pane.getChildren().add(particles.get(i));
         }
 
-        cowboy = new CowboyParticle(cat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
+        cowboy = new CowboyParticle(soldat, pane.getPrefWidth() / 2, pane.getPrefHeight() / 2, 0, 0, audioClip, 0, 1, 0, 0, 10);
 
         pane.getChildren().add(cowboy);
         /* AnimationTimer :  implementation de la méthode
@@ -169,13 +171,17 @@ public class Controller {
                                 ennemis_Mort++;
                                 cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
                             } else if ((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) {
-                                Image image = ((i & 1) == 1) ? owl : cat;
-                                double px = random.nextDouble() * (pane.getPrefWidth() - image.getWidth());
-                                double py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
+                                boolean b = ((i & 1) == 1);
+                                Image image = b ? demon_f : demon_m;
+                                double genre = b ? 90 : 25;
+
+                                double px = random.nextDouble() * (pane.getPrefWidth() / 2 - image.getWidth());
+                                double py = random.nextDouble() * (pane.getPrefHeight() / 2 - image.getHeight());
 
                                 double vx = 8 * (random.nextDouble() - 0.5);
                                 double vy = 8 * (random.nextDouble() - 0.5);
-                                double genre = random.nextDouble() % 100;
+
+
                                 particles.add(new DemonParticle(image, px, py,
                                         vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre));
 
@@ -215,7 +221,6 @@ public class Controller {
 
 
     }
-
 
     public void quitter(ActionEvent actionEvent) {
         Platform.exit();
@@ -276,6 +281,27 @@ public class Controller {
 
     public void jouer(ActionEvent actionEvent) {
         animationTimer.start();
+    }
+
+    public void relancer(ActionEvent actionEvent) {
+    }
+
+    public void sauvegarder(ActionEvent actionEvent) {
+    }
+
+    public void controle(ActionEvent actionEvent) {
+    }
+
+    public void backgroung(ActionEvent actionEvent) {
+    }
+
+    public void difficute(ActionEvent actionEvent) {
+    }
+
+    public void createPlayer(ActionEvent actionEvent) {
+    }
+
+    public void removePlayer(ActionEvent actionEvent) {
     }
 }
 
