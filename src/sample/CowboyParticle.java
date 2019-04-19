@@ -1,16 +1,35 @@
 package sample;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 class CowboyParticle extends SingleParticle {
 
-    final DoubleProperty munitions = new SimpleDoubleProperty();
-    final DoubleProperty vie = new SimpleDoubleProperty();
-    final DoubleProperty ultimate = new SimpleDoubleProperty();
+    final DoubleProperty munitions = new SerializableSimpleDoubleProperty();
+    final DoubleProperty vie = new SerializableSimpleDoubleProperty();
+    final DoubleProperty ultimate = new SerializableSimpleDoubleProperty();
+
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        super.writeObjectGen(oos);
+        oos.writeDouble(get_Munitions());
+        oos.writeDouble(get_Vie());
+        oos.writeDouble(get_Ultimate());
+    }
+
+    private void readObject(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+        super.readObjectGen(ois);
+        set_Munitions(ois.readDouble());
+        set_Vie(ois.readDouble());
+        set_Ultimate(ois.readDouble());
+    }
 
     CowboyParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
@@ -131,6 +150,11 @@ class CowboyParticle extends SingleParticle {
                 audio.play();
             //audio.play();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "cowboy";
     }
 
 }
