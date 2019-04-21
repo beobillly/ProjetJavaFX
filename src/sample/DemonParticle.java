@@ -64,23 +64,6 @@ class DemonParticle extends SingleParticle {
         }
 
         /*verifier si on ne sort pas sur le bord droit du parent*/
-        if (getX() > 900 && get_VX() > 0) {
-            set_VX(-get_VX());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-            //audio.play();
-        }
-
-        /*verifier si on ne sort pas sur le bord en bas du parent*/
-        if (getY() > 700 && get_VY() > 0) {
-            set_VY(-get_VY());
-            faireRotation();
-            if (audio != null)
-                audio.play();
-            //audio.play();
-        }
-        /*verifier si on ne sort pas sur le bord droit du parent*/
         if (getX() + getBoundsInLocal().getWidth()
                 > ((Region) getParent()).getWidth()
                 && get_VX() > 0) {

@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass()
                 .getResource("sample.fxml"));
         primaryStage.setTitle("Pistolero");
-        primaryStage.setScene(new Scene(root, 1200, 800));
+        primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
     }
 }

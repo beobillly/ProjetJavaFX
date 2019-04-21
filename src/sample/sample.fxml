@@ -83,7 +83,7 @@
 
                     </VBox>
 
-                    <Pane fx:id="pane" prefWidth="500" prefHeight="500"/>
+                    <Pane fx:id="pane" prefWidth="600" prefHeight="600"/>
 
                 </HBox>
 
