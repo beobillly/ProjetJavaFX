@@ -474,16 +474,16 @@ public class Controller {
         assert root != null;
         fenetre_help.setScene(new Scene(root, 700, 400));
 
-        Parent root2 = null;
+
         try {
-            root2 = FXMLLoader.load(getClass()
+            root = FXMLLoader.load(getClass()
                     .getResource("win.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         fenetre_win.setTitle("Gagné!");
-        assert root2 != null;
-        fenetre_win.setScene(new Scene(root2, 700, 400));
+        assert root != null;
+        fenetre_win.setScene(new Scene(root, 700, 400));
     }
 
 
