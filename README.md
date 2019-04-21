@@ -21,7 +21,7 @@ les touches a choisir pour les deplacements
 
 Billy :
 
-faire l'animation de l'ultimate
+faire l'animation de l'ultimatea
 gérer les sprites des demons
 gerer les comportements des demons (aléatoire, guidé, intelligent)
 gerer la fenetre avec tous les menus (menu d'aide, menu pour changer de touche, menu pour changer la difficulté, menu pour configurer le multijoueur, menu pour redemarrer une partie )

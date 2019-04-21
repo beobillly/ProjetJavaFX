@@ -4,12 +4,15 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 
 public class Help extends Controller {
 
     @FXML
     public Label label_help;
+    @FXML
+    private javafx.scene.control.Button comprisButton;
 
     public void initialize() {
 
@@ -21,7 +24,7 @@ public class Help extends Controller {
                                 "Deplacez vous avec Z-Q-S-D (resp HAUT GAUCHE BAS DROITE)\n" +
                                 "Tirer avec F sur les ennemis\n" +
                                 "Les touches peuvent etre changées dans le menu en cliquant sur : Changer les controles\n" +
-                                "Vous pouvez modifier la vitesse du jeu en scrollant la bar en bas de la fenetre\n" +
+                                "Vous pouvez modifier la vitesse du jeu en scrollant la barre en bas de la fenetre\n" +
                                 "Ne laissez pas les demons vous manger\n" +
                                 "Le jeu se termine quand vous avez tué tous les demons ou lorsque vous vous etes fait manger\n" +
                                 "Différentes options sont disponibles dans le menu n'hésitez pas à les utiliser !\n"
@@ -32,6 +35,9 @@ public class Help extends Controller {
     }
 
     public void fermerHelp(ActionEvent actionEvent) {
-        fenetre_help.close();
+
+        Stage stage = (Stage) comprisButton.getScene().getWindow();
+
+        stage.close();
     }
 }

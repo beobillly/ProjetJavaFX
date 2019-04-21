@@ -7,13 +7,15 @@ import javafx.scene.media.AudioClip;
 public class BulletParticle extends SingleParticle {
 
     private int bounceCount;
+    final CowboyParticle owner;
 
     public BulletParticle(Image image, double x, double y,
                           double v_x, double v_y, AudioClip audioClip,
-                          double ax, double ay, double movex, double movey, double genre) {
+                          double ax, double ay, double movex, double movey, double genre, CowboyParticle cowboy) {
 
         super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
         bounceCount = 0;
+        owner = cowboy;
     }
 
     int getBounceCount() {
