@@ -391,6 +391,7 @@ public class Controller {
                         ennemis_Mort++;
                         nbEnnemisCourant--;
                         cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+
                     } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles) < nbEnnemisMax) {
 
                         Image image = ((i & 1) == 1) ? demon_m : demon_f;
