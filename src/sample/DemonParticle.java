@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
 class DemonParticle extends SingleParticle {
@@ -73,6 +74,28 @@ class DemonParticle extends SingleParticle {
 
         /*verifier si on ne sort pas sur le bord en bas du parent*/
         if (getY() > 700 && get_VY() > 0) {
+            set_VY(-get_VY());
+            faireRotation();
+            if (audio != null)
+                audio.play();
+            //audio.play();
+        }
+        /*verifier si on ne sort pas sur le bord droit du parent*/
+        if (getX() + getBoundsInLocal().getWidth()
+                > ((Region) getParent()).getWidth()
+                && get_VX() > 0) {
+            setX(((Region) getParent()).getWidth() - getBoundsInLocal().getWidth());
+            set_VX(-get_VX());
+            faireRotation();
+            if (audio != null)
+                audio.play();
+            //audio.play();
+        }
+        /*verifier si on ne sort pas sur le bord en bas du parent*/
+        if (getY() + getBoundsInLocal().getHeight()
+                > ((Region) getParent()).getHeight()
+                && get_VY() > 0) {
+            setY(((Region) getParent()).getWidth() - getBoundsInLocal().getHeight());
             set_VY(-get_VY());
             faireRotation();
             if (audio != null)

@@ -198,6 +198,8 @@ public class Controller {
             DemonParticle dP = new DemonParticle(image, px, py,
                     vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre);
             particles.add(dP);
+            dP.rateProperty().bind(slider.valueProperty()
+                    .multiply(1 / 0.3));
             pane.getChildren().add(dP);
         }
     }
@@ -391,6 +393,7 @@ public class Controller {
                         ennemis_Mort++;
                         nbEnnemisCourant--;
                         cowboy.set_Ultimate(cowboy.get_Ultimate() + 5);
+
                     } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles) < nbEnnemisMax) {
 
                         Image image = ((i & 1) == 1) ? demon_m : demon_f;
@@ -421,9 +424,12 @@ public class Controller {
                         } while (!pass);
 
                         genre = random.nextDouble() * 100;
+                        DemonParticle dP = new DemonParticle(image, px, py,
+                                vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre);
+                        particles.add(dP);
 
-                        particles.add(new DemonParticle(image, px, py,
-                                vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre));
+                        dP.rateProperty().bind(slider.valueProperty()
+                                .multiply(1 / 0.3));
 
                         pane.getChildren().add(particles.get(particles.size() - 1));
                         particles.get(i).set_VX(-particles.get(i).get_VX());
