@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
-            fx:controller="sample.Win"
+            fx:controller="sample.Lose"
             prefHeight="400.0" prefWidth="600.0">
     <top>
         <MenuBar useSystemMenuBar="true">
