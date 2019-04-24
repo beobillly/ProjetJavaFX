@@ -2,6 +2,7 @@ package sample;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
@@ -9,11 +10,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import static javafx.scene.input.KeyCode.*;
+
 class CowboyParticle extends SingleParticle {
 
     final DoubleProperty munitions = new SerializableSimpleDoubleProperty();
     final DoubleProperty vie = new SerializableSimpleDoubleProperty();
     final DoubleProperty ultimate = new SerializableSimpleDoubleProperty();
+    private KeyCode upKey = W;
+    private KeyCode downKey = S;
+    private KeyCode leftKey = A;
+    private KeyCode rightKey = D;
+    private KeyCode fireKey = C;
+    private KeyCode ultKey = Q;
 
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
@@ -41,12 +50,30 @@ class CowboyParticle extends SingleParticle {
     }
 
     CowboyParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip, double genre, double ammo) {
+        super(image, x, y, v_x, v_y, audioClip, genre);
+        set_Munitions(ammo);
+        set_Ultimate(0);
+    }
+
+    CowboyParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip, double genre, double ammo, KeyCode up, KeyCode down, KeyCode left, KeyCode right, KeyCode fire) {
+        super(image, x, y, v_x, v_y, audioClip, genre);
+        set_Munitions(ammo);
+        set_Ultimate(0);
+        this.upKey = up;
+        this.downKey = down;
+        this.rightKey = right;
+        this.leftKey = left;
+        this.fireKey = fire;
+
+    }
+
+    CowboyParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
-                   double ax, double ay, double movex, double movey, double genre, double munitions, double vie, double ultimate) {
+                   double ax, double ay, double movex, double movey, double genre, double munitions) {
         this(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
         set_Munitions(munitions);
-        set_Vie(vie);
-        set_Ultimate(ultimate);
     }
 
     DoubleProperty munitionsProperty() {
@@ -87,6 +114,54 @@ class CowboyParticle extends SingleParticle {
             ultimate.set(100);
     }
 
+
+    void setUp(KeyCode kc) {
+        this.upKey = kc;
+    }
+
+    void setDown(KeyCode kc) {
+        this.downKey = kc;
+    }
+
+    void setLeft(KeyCode kc) {
+        this.leftKey = kc;
+    }
+
+    void setRight(KeyCode kc) {
+        this.rightKey = kc;
+    }
+
+    void setUlt(KeyCode kc) {
+        this.ultKey = kc;
+    }
+
+    KeyCode getUpKey() {
+        return upKey;
+    }
+
+    KeyCode getDownKey() {
+        return downKey;
+    }
+
+    KeyCode getLeftKey() {
+        return leftKey;
+    }
+
+    KeyCode getRightKey() {
+        return rightKey;
+    }
+
+    KeyCode getFireKey() {
+        return fireKey;
+    }
+
+    void setFireKey(KeyCode kc) {
+        this.fireKey = kc;
+    }
+
+    KeyCode getUltKey() {
+        return ultKey;
+    }
 
     /* la methode move() fait bouger l'objet
     sur la scene. Cette méthode sera appelée dans la methode handle()

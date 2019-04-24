@@ -12,6 +12,8 @@ public class Win extends Controller {
     @FXML
     public Label label_win;
     @FXML
+    public Label label_lose;
+    @FXML
     private javafx.scene.control.Button replayButton;
     @FXML
     private javafx.scene.control.Button quitButton;

@@ -95,6 +95,19 @@ abstract class SingleParticle extends ImageView implements Serializable {
         faireRotation();
     }
 
+    SingleParticle(Image image, double x, double y,
+                   double v_x, double v_y, AudioClip audioClip,
+                   double genre) {
+        super(image);
+        vx.set(v_x);
+        vy.set(v_y);
+        setX(x);
+        setY(y);
+        this.audio = audioClip;
+        set_Genre(genre);
+        faireRotation();
+    }
+
     /* faireRotation() fait tourner l'objet dee façon à ce que la face
     soit tournée vers la direction du vecteur de la vitesse.
     La méthode n'est pas terminée, et marche pour l'instant uniquement
@@ -113,6 +126,11 @@ abstract class SingleParticle extends ImageView implements Serializable {
             set_Degre(degrees);
         }
 
+        setRotate(degrees);
+    }
+
+    void faireRotation2() {
+        double degrees = get_Degre();
         setRotate(degrees);
     }
 

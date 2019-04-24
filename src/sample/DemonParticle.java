@@ -42,7 +42,7 @@ class DemonParticle extends SingleParticle {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     void move() {
-        double delta = 3 * get_Rate();
+        double delta = 1.5 * get_Rate();
         setX(getX() + get_VX() * delta);
         setY(getY() + get_VY() * delta);
         /*verifier si on ne sort pas sur une position
