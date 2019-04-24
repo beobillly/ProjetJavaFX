@@ -60,7 +60,7 @@ public class Controller {
     private int nbEnnemisMax = 35; //nb d'ennemis maximal sur l'arene
     private final int nbBallesDebut = 25;
     protected Stage fenetre_win = new Stage();
-
+    protected Stage fenetre_controle = new Stage();
     protected Stage fenetre_help = new Stage();
     private int nbBalles = nbBallesDebut;
 
@@ -79,7 +79,6 @@ public class Controller {
                         p.move();
                 }
                 cowboy.move();
-
 
                 manageCowboyControls();
 
@@ -484,6 +483,16 @@ public class Controller {
         fenetre_win.setTitle("Gagné!");
         assert root != null;
         fenetre_win.setScene(new Scene(root, 700, 400));
+
+        try {
+            root = FXMLLoader.load(getClass()
+                    .getResource("controle.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        fenetre_controle.setTitle("Gagné!");
+        assert root != null;
+        fenetre_controle.setScene(new Scene(root, 700, 400));
     }
 
 
@@ -644,6 +653,8 @@ public class Controller {
     }
 
     public void controle(ActionEvent actionEvent) {
+        animationTimer.stop();
+        fenetre_controle.show();
     }
 
     public void background(ActionEvent actionEvent) {

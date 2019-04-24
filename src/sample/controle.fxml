@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             fx:controller="sample.Controle"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="600.0">
     <top>
-        <MenuBar useSystemMenuBar="true">
-            <Menu text="Fichier">
-                <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
-                </MenuItem>
-            </Menu>
-        </MenuBar>
+        <HBox fx:id="hbox_top" alignment="CENTER" prefWidth="600" prefHeight="200" spacing="30">
+
+
+            <Label fx:id="label_top" alignment="CENTER">
+            </Label>
+            <Pane fx:id="pane_top" prefHeight="180" prefWidth="580" onKeyPressed="#key_top">
+
+            </Pane>
+
+        </HBox>
+
     </top>
     <center>
-        <VBox alignment="center">
-            <padding>
-                <Insets left="10" right="10" top="10" bottom="10"/>
-            </padding>
-            <children>
-                <Label fx:id="label_win">
-                </Label>
-
-            </children>
-        </VBox>
+        <Label fx:id="label_center" alignment="CENTER">
+        </Label>
     </center>
-    <bottom>
-        <VBox alignment="center">
-            <padding>
-                <Insets left="10" right="10" top="10" bottom="10"/>
-            </padding>
+    <left>
+        <VBox alignment="CENTER" prefWidth="300" prefHeight="200">
             <children>
-                <Button text="Quitter" alignment="CENTER" prefWidth="120.0" prefHeight="20.0"
-                        fx:id="quitButton" onAction="#quitterLeJeu"/>
-            </children>
-            <children>
-                <Button text="Rejouer" alignment="CENTER" prefWidth="120.0" prefHeight="20.0"
-                        fx:id="replayButton" onAction="#rejouer"/>
+                <Label fx:id="label_left" alignment="CENTER">
+                </Label>
             </children>
         </VBox>
-
+    </left>
+    <right>
+        <VBox alignment="CENTER" prefWidth="300" prefHeight="200">
+            <children>
+                <Label fx:id="label_right" alignment="CENTER">
+                </Label>
+            </children>
+        </VBox>
+    </right>
+    <bottom>
+        <HBox alignment="CENTER" prefWidth="600" prefHeight="200">
+            <children>
+                <Label fx:id="label_bottom" alignment="CENTER">
+                </Label>
+            </children>
+        </HBox>
     </bottom>
 
 </BorderPane>
