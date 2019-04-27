@@ -19,6 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -69,6 +71,13 @@ public class Controller {
     protected Stage fenetre_controle = new Stage();
     protected Stage fenetre_help = new Stage();
     private int nbBalles = nbBallesDebut;
+    private int currentWallPaperChoice;
+    private Image current_cowboy_image;
+    private Image current_obstacle_image;
+    private Image current_demon_f_image;
+    private Image current_demon_m_image;
+    private Image current_bullet_image;
+    private AudioClip current_audio_clip;
 
     @FXML
     public void initialize() {
@@ -144,10 +153,15 @@ public class Controller {
         URL url = getClass().getResource("ressources/squareObstacle.png");
         Image obstacleImage = new Image(url.toString());
 
+        current_obstacle_image = obstacleImage;
+
         url = getClass().getResource("ressources/demon_f.png");
         Image demon_f = new Image(url.toString());
         url = getClass().getResource("ressources/demon_m.png");
         Image demon_m = new Image(url.toString());
+
+        current_demon_f_image = demon_f;
+        current_demon_m_image = demon_m;
 
         Random random = new Random(System.nanoTime());
 
@@ -167,6 +181,8 @@ public class Controller {
         }
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
+
+        current_audio_clip = audioClip;
 
 
 //creer les particules
@@ -227,8 +243,6 @@ public class Controller {
 
     private void fillWallpapers() {
 
-        Random random = new Random(System.nanoTime());
-
         URL url = getClass().getResource("ressources/ciel.jpg");
         Image ciel = new Image(url.toString());
         fond_ecran.add(ciel);
@@ -247,6 +261,8 @@ public class Controller {
 
         Random random = new Random(System.nanoTime());
         int choix = random.nextInt(4);
+        currentWallPaperChoice = choix;
+        pane.setBackground(Background.EMPTY);
         pane.setBackground(new Background(new BackgroundImage(fond_ecran.get(choix), null, null, null, null)));
     }
 
@@ -257,6 +273,11 @@ public class Controller {
 
         URL url = getClass().getResource("ressources/soldat.png");
         Image soldat = new Image(url.toString());
+
+        current_cowboy_image = soldat;
+
+        String s = soldat.impl_getUrl();
+
 
         CowboyParticle cb = new CowboyParticle(soldat, pane.getPrefWidth() / 2 - 60 + cowboyList.size() * 20, pane.getPrefHeight() / 2, 0, 0, null, 10, nbBallesDebut, W, S, A, D, X);
         pane.getChildren().add(cb);
@@ -285,7 +306,8 @@ public class Controller {
                     if (cb.get_Munitions() > 0) {
                         URL url = getClass().getResource("ressources/Advanced_Sniper_Bullet-ConvertImage.png");
                         Image image = new Image(url.toString());
-                        particles.add(new BulletParticle(image, cb.getX(), cb.getY(), bulletSpeed * Math.cos(Math.toRadians(cb.get_Degre() - 90)), bulletSpeed * Math.sin(Math.toRadians(cb.get_Degre() - 90)), null, 0.0, 1.0, 0.0, 0.0, -1, cb));
+                        current_bullet_image = image;
+                        particles.add(new BulletParticle(image, cb.getX(), cb.getY(), bulletSpeed * Math.cos(Math.toRadians(cb.get_Degre() - 90)), bulletSpeed * Math.sin(Math.toRadians(cb.get_Degre() - 90)), null));
                         pane.getChildren().add(particles.get(particles.size() - 1));
                         cb.set_Munitions(cb.get_Munitions() - 1);
                     }
@@ -420,7 +442,7 @@ public class Controller {
 
                             ennemis_Mort++;
                             nbEnnemisCourant--;
-                            ((BulletParticle) particles.get(i)).owner.set_Ultimate(((BulletParticle) particles.get(i)).owner.get_Ultimate() + 5);
+                            cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
                         }
 
                         pane.getChildren().remove(particles.get(j));
@@ -435,7 +457,7 @@ public class Controller {
 
                             ennemis_Mort++;
                             nbEnnemisCourant--;
-                            ((BulletParticle) particles.get(j)).owner.set_Ultimate(((BulletParticle) particles.get(j)).owner.get_Ultimate() + 5);
+                            cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
                         }
 
                         pane.getChildren().remove(particles.get(i));
@@ -558,7 +580,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        fenetre_lose.setTitle("Gagné!");
+        fenetre_lose.setTitle("Perdu!");
         assert root != null;
         fenetre_lose.setScene(new Scene(root, 700, 400));
     }
@@ -570,10 +592,209 @@ public class Controller {
 
     public void sauvegarder() {
 
+
+        try {
+            FileWriter fw = new FileWriter("sauvegarde.txt");
+
+            IO.ecrireMode(fw, mode);
+
+            IO.ecrireSeparateurPrincipal(fw);
+
+            for (CowboyParticle cb : cowboyList) {
+                IO.ecrireParticule(fw, cb);
+            }
+
+            IO.ecrireSeparateurPrincipal(fw);
+
+            for (SingleParticle p : particles) {
+                IO.ecrireParticule(fw, p);
+            }
+
+            IO.ecrireSeparateurPrincipal(fw);
+
+            IO.ecrire(fw, Integer.toString(currentWallPaperChoice));
+
+            fw.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void charger() {
 
+        String content = "";
+
+        try {
+            FileReader fr = new FileReader("sauvegarde.txt");
+            content = IO.lireToutFichier(fr);
+            fr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] groupes = new String[4];
+        groupes = content.split("%");
+
+        for (String groupe : groupes) {
+            System.out.println(groupe);
+            System.out.println();
+            System.out.println();
+        }
+
+        String modeACharger = groupes[0];
+
+        String[] cowboys = groupes[1].split("PARTICLE");
+
+        String[] particles = groupes[2].split("PARTICLE");
+
+        String wallpaper = groupes[3];
+
+        modeACharger = modeACharger.trim();
+
+        //on remet le bon mode
+
+        this.mode = Integer.parseInt(modeACharger);
+
+        wallpaper = wallpaper.trim();
+
+        //On remet le bon wallpaper
+        pane.setBackground(new Background(new BackgroundImage(fond_ecran.get(Integer.parseInt(wallpaper)), null, null, null, null)));
+
+        //on clear les arraylists
+
+        resetCowboys();
+        resetParticles();
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("------------------------------");
+
+        for (int ind = 1; ind < cowboys.length; ind++) {
+
+            System.out.println(cowboys[ind]);
+            String[] cbParts = cowboys[ind].split("#");
+
+            String[] XandY = cbParts[3].split(";");
+            assert XandY.length == 2;
+            Double xPos = Double.parseDouble(XandY[0]);
+            Double yPos = Double.parseDouble(XandY[1]);
+
+            String[] VXandVY = cbParts[4].split(";");
+            assert VXandVY.length == 2;
+            Double vX = Double.parseDouble(VXandVY[0]);
+            Double vY = Double.parseDouble(VXandVY[1]);
+
+            Double ammo = Double.parseDouble(cbParts[5]);
+
+            Double ult = Double.parseDouble(cbParts[6]);
+
+            Double degree = Double.parseDouble(cbParts[7]);
+
+
+            CowboyParticle cow_boy = new CowboyParticle(current_cowboy_image, xPos, yPos, vX, vY, null, 10, ammo);
+            cow_boy.set_Ultimate(ult);
+            cow_boy.set_Degre(degree);
+
+            cowboyList.add(cow_boy);
+            pane.getChildren().add(cow_boy);
+
+
+        }
+
+        for (int ind = 1; ind < particles.length; ind++) {
+
+            System.out.println(particles[ind]);
+
+            String[] pParts = particles[ind].split("#");
+
+            if (pParts[1].equals("IMPEDIMENT")) {
+                String[] XandY = pParts[3].split(";");
+                assert XandY.length == 2;
+                Double xPos = Double.parseDouble(XandY[0]);
+                Double yPos = Double.parseDouble(XandY[1]);
+                ObstacleParticle oP = new ObstacleParticle(current_obstacle_image, xPos, yPos);
+                this.particles.add(oP);
+                pane.getChildren().add(oP);
+            }
+
+            if (pParts[1].equals("DEAMON")) {
+                String[] XandY = pParts[3].split(";");
+                assert XandY.length == 2;
+                Double xPos = Double.parseDouble(XandY[0]);
+                Double yPos = Double.parseDouble(XandY[1]);
+                String[] VXandVY = pParts[4].split(";");
+                assert VXandVY.length == 2;
+                Double vX = Double.parseDouble(VXandVY[0]);
+                Double vY = Double.parseDouble(VXandVY[1]);
+
+                Double genre = Double.parseDouble(pParts[5]);
+
+
+                DemonParticle dP = new DemonParticle((genre < 50) ? current_demon_m_image : current_demon_f_image, xPos, yPos, vX, vY, current_audio_clip, 0, 0, 0, 0, genre);
+                this.particles.add(dP);
+                pane.getChildren().add(dP);
+            }
+
+            if (pParts[1].equals("BULLET")) {
+                System.out.println("Je rentre là");
+                String[] XandY = pParts[3].split(";");
+                assert XandY.length == 2;
+                Double xPos = Double.parseDouble(XandY[0]);
+                Double yPos = Double.parseDouble(XandY[1]);
+
+                System.out.println(xPos);
+                System.out.println(yPos);
+
+                String[] VXandVY = pParts[4].split(";");
+                assert VXandVY.length == 2;
+                Double vX = Double.parseDouble(VXandVY[0]);
+                Double vY = Double.parseDouble(VXandVY[1]);
+
+                System.out.println(vX);
+                System.out.println(vY);
+
+
+                URL url = getClass().getResource("ressources/Advanced_Sniper_Bullet-ConvertImage.png");
+                Image image = new Image(url.toString());
+
+                BulletParticle bP = new BulletParticle(image, xPos, yPos, vX, vY, null);
+                this.particles.add(bP);
+                pane.getChildren().add(bP);
+            }
+//            String[] XandY = pParts[3].split(";");
+//            assert XandY.length == 2;
+//            Double xPos = Double.parseDouble(XandY[0]);
+//            Double yPos = Double.parseDouble(XandY[1]);
+//
+//            String[] VXandVY = pParts[4].split(";");
+//            assert VXandVY.length == 2;
+//            Double vX = Double.parseDouble(VXandVY[0]);
+//            Double vY = Double.parseDouble(VXandVY[1]);
+//
+//            ammo = Double.parseDouble(pParts[5]);
+//
+//            ult = Double.parseDouble(pParts[6]);
+//
+//            degree = Double.parseDouble(pParts[7]);
+
+
+//
+//
+//            CowboyParticle cow_boy = new CowboyParticle(current_cowboy_image, xPos, yPos, vX, vY, null, 10, ammo);
+//            cow_boy.set_Ultimate(ult);
+//            cow_boy.set_Degre(degree);
+//
+//            cowboyList.add(cow_boy);
+//            pane.getChildren().add(cow_boy);
+
+
+        }
     }
 
     public void itsHighNoooooon(ActionEvent actionEvent) {
@@ -696,7 +917,7 @@ public class Controller {
         URL url = getClass().getResource("ressources/soldat.png");
         Image soldat = new Image(url.toString());
 
-        CowboyParticle cb = new CowboyParticle(soldat, pane.getPrefWidth() / 2 - 10 + cowboyList.size() * 5, pane.getPrefHeight() / 2, 0, 0, null, 10, nbBallesDebut, I, K, J, L, N);
+        CowboyParticle cb = new CowboyParticle(soldat, pane.getPrefWidth() / 2 - 10 + cowboyList.size() * 20, pane.getPrefHeight() / 2, 0, 0, null, 10, nbBallesDebut, I, K, J, L, N);
         cowboyList.add(cb);
         pane.getChildren().add(cb);
     }

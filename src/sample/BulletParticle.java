@@ -4,18 +4,29 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class BulletParticle extends SingleParticle {
 
     private int bounceCount;
-    final CowboyParticle owner;
+
 
     public BulletParticle(Image image, double x, double y,
                           double v_x, double v_y, AudioClip audioClip,
-                          double ax, double ay, double movex, double movey, double genre, CowboyParticle cowboy) {
+                          double genre, CowboyParticle cowboy) {
 
-        super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
+        super(image, x, y, v_x, v_y, audioClip, genre);
         bounceCount = 0;
-        owner = cowboy;
+
+    }
+
+    public BulletParticle(Image image, double x, double y,
+                          double v_x, double v_y, AudioClip audioClip) {
+
+        super(image, x, y, v_x, v_y, audioClip, -1);
+        bounceCount = 0;
+
     }
 
     int getBounceCount() {
@@ -73,5 +84,24 @@ public class BulletParticle extends SingleParticle {
 
     public String toString() {
         return "balle";
+    }
+
+    protected void writeParticle(FileWriter writer) throws IOException {
+
+        writer.write("PARTICLE");
+        writer.write("#");
+
+        writer.write("BULLET");
+        writer.write("#");
+
+        writer.write(this.getImage().impl_getUrl());
+        writer.write("#");
+
+        writer.write(this.getX() + ";" + this.getY());
+        writer.write("#");
+
+        writer.write(this.get_VX() + ";" + this.get_VY());
+        writer.write("#");
+
     }
 }

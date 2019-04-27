@@ -6,9 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import static javafx.scene.input.KeyCode.*;
 
@@ -25,20 +24,6 @@ class CowboyParticle extends SingleParticle {
     private KeyCode ultKey = Q;
 
 
-    private void writeObject(ObjectOutputStream oos) throws IOException {
-        super.writeObjectGen(oos);
-        oos.writeDouble(get_Munitions());
-        oos.writeDouble(get_Vie());
-        oos.writeDouble(get_Ultimate());
-    }
-
-    private void readObject(ObjectInputStream ois)
-            throws IOException, ClassNotFoundException {
-        super.readObjectGen(ois);
-        set_Munitions(ois.readDouble());
-        set_Vie(ois.readDouble());
-        set_Ultimate(ois.readDouble());
-    }
 
     CowboyParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip,
@@ -52,6 +37,13 @@ class CowboyParticle extends SingleParticle {
     CowboyParticle(Image image, double x, double y,
                    double v_x, double v_y, AudioClip audioClip, double genre, double ammo) {
         super(image, x, y, v_x, v_y, audioClip, genre);
+        set_Munitions(ammo);
+        set_Ultimate(0);
+    }
+
+    CowboyParticle(Image image, double x, double y,
+                   double v_x, double v_y, double genre, double ammo) {
+        super(image, x, y, v_x, v_y, null, genre);
         set_Munitions(ammo);
         set_Ultimate(0);
     }
@@ -75,6 +67,7 @@ class CowboyParticle extends SingleParticle {
         this(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
         set_Munitions(munitions);
     }
+
 
     DoubleProperty munitionsProperty() {
         return munitions;
@@ -230,6 +223,33 @@ class CowboyParticle extends SingleParticle {
     @Override
     public String toString() {
         return "cowboy";
+    }
+
+    protected void writeParticle(FileWriter writer) throws IOException {
+
+        writer.write("PARTICLE");
+        writer.write("#");
+
+        writer.write("COWBOY");
+        writer.write("#");
+
+        writer.write(this.getImage().impl_getUrl());
+        writer.write("#");
+
+        writer.write(this.getX() + ";" + this.getY());
+        writer.write("#");
+
+        writer.write(this.get_VX() + ";" + this.get_VY());
+        writer.write("#");
+
+        writer.write(Double.toString(this.get_Munitions()));
+        writer.write("#");
+
+        writer.write(Double.toString(this.get_Ultimate()));
+        writer.write("#");
+
+        writer.write(Double.toString(this.get_Degre()));
+        writer.write("#");
     }
 
 }

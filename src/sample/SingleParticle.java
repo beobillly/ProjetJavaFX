@@ -5,9 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 abstract class SingleParticle extends ImageView implements Serializable {
@@ -51,18 +51,7 @@ abstract class SingleParticle extends ImageView implements Serializable {
 
     */
 
-    protected void writeObjectGen(ObjectOutputStream oos) throws IOException {
-        oos.writeDouble(getX());
-        oos.writeDouble(getY());
-        oos.writeDouble(get_VX());
-        oos.writeDouble(get_VY());
-        oos.writeDouble(get_AX());
-        oos.writeDouble(get_AY());
-        oos.writeDouble(get_Degre());
-        oos.writeDouble(get_Genre());
-        oos.writeDouble(get_Mass());
-        oos.writeDouble(get_Rate());
-    }
+    abstract protected void writeParticle(FileWriter writer) throws IOException;
 
     protected void readObjectGen(ObjectInputStream ois)
             throws IOException, ClassNotFoundException {

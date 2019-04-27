@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 class DemonParticle extends SingleParticle {
 
 
@@ -89,6 +92,28 @@ class DemonParticle extends SingleParticle {
 
     public String toString() {
         return "demon";
+    }
+
+    protected void writeParticle(FileWriter writer) throws IOException {
+
+        writer.write("PARTICLE");
+        writer.write("#");
+
+
+        writer.write("DEAMON");
+        writer.write("#");
+
+        writer.write(this.getImage().impl_getUrl());
+        writer.write("#");
+
+        writer.write(this.getX() + ";" + this.getY());
+        writer.write("#");
+
+        writer.write(this.get_VX() + ";" + this.get_VY());
+        writer.write("#");
+
+        writer.write(Double.toString(this.get_Genre()));
+        writer.write("#");
     }
 }
 
