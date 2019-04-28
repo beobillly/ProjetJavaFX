@@ -1,8 +1,11 @@
 package sample;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.media.AudioClip;
+
+import java.util.ArrayList;
 
 class DemonParticle extends SingleParticle {
 
@@ -17,11 +20,49 @@ class DemonParticle extends SingleParticle {
          Quand le personnage se déplace nous voulons qu'il soit tourné
          vers la direction du mouvement.
     */
+    final DoubleProperty comportement = new SerializableSimpleDoubleProperty();
+    final DoubleProperty delta = new SerializableSimpleDoubleProperty();
+
+    ArrayList<CowboyParticle> cowboyParticle;
 
     DemonParticle(Image image, double x, double y,
                   double v_x, double v_y, AudioClip audioClip,
-                  double ax, double ay, double movex, double movey, double genre) {
+                  double ax, double ay, double movex, double movey, double genre, double comportement, double delta) {
         super(image, x, y, v_x, v_y, audioClip, ax, ay, movex, movey, genre);
+        set_Comportement(comportement);
+        set_Delta(delta);
+    }
+
+    DoubleProperty comportementProperty() {
+        return comportement;
+    }
+
+    DoubleProperty deltaProperty() {
+        return comportement;
+    }
+
+    ArrayList<CowboyParticle> getCowboyParticle() {
+        return cowboyParticle;
+    }
+
+    void setCowboyParticle(ArrayList<CowboyParticle> cb) {
+        this.cowboyParticle = cb;
+    }
+
+    double get_Delta() {
+        return delta.getValue();
+    }
+
+    void set_Delta(double v) {
+        delta.set(v);
+    }
+
+    double get_Comportement() {
+        return comportement.getValue();
+    }
+
+    void set_Comportement(double v) {
+        comportement.set(v);
     }
 
     /* la methode move() fait bouger l'objet
@@ -42,9 +83,47 @@ class DemonParticle extends SingleParticle {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     void move() {
-        double delta = 1.5 * get_Rate();
-        setX(getX() + get_VX() * delta);
-        setY(getY() + get_VY() * delta);
+        double delta = get_Delta() * get_Rate();
+        CowboyParticle cb = cowboyParticle.get(0);
+
+        switch ((int) get_Comportement()) {
+            //comportement de base
+            case 1:
+                if (getX() < cb.getX()) {
+                    if (get_VX() < 0) {
+                        set_VX(-get_VX());
+                        faireRotation();
+                    }
+                    setX(getX() + get_VX() * delta);
+                }
+                if (getX() > cb.getX()) {
+                    if (get_VX() > 0) {
+                        set_VX(-get_VX());
+                        faireRotation();
+                    }
+                    setX(getX() + get_VX() * delta);
+                }
+                if (getY() < cb.getY()) {
+                    if (get_VY() < 0) {
+                        set_VY(-get_VY());
+                        faireRotation();
+                    } else setY(getY() + get_VY() * delta);
+                }
+                if (getY() > cb.getY()) {
+                    if (get_VY() > 0) {
+                        set_VY(-get_VY());
+                        faireRotation();
+                    }
+                    setY(getY() + get_VY() * delta);
+                }
+
+            default:
+                setX(getX() + get_VX() * delta);
+                setY(getY() + get_VY() * delta);
+                break;
+        }
+
+
         /*verifier si on ne sort pas sur une position
           avec x negatif*/
         if (getX() < 0 && get_VX() < 0) {
@@ -90,5 +169,6 @@ class DemonParticle extends SingleParticle {
     public String toString() {
         return "demon";
     }
+
 }
 

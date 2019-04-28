@@ -114,7 +114,6 @@ class CowboyParticle extends SingleParticle {
             ultimate.set(100);
     }
 
-
     void setUp(KeyCode kc) {
         this.upKey = kc;
     }
