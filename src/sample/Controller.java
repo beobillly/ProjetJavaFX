@@ -55,7 +55,7 @@ public class Controller {
 
     protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
-    private final int nb = 3; //nombre de particules ennemies en début de partie
+    private final int nb = 10; //nombre de particules ennemies en début de partie
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
     private final int nbObstacles = 5;//nombre d'obstacles
@@ -114,7 +114,12 @@ public class Controller {
         //à la valeur de slider
         for (SingleParticle p : particles) {
             p.rateProperty().bind(slider.valueProperty()
-                    .multiply(1 / 0.3));
+                    .multiply(1 / 0.5));
+        }
+
+        for (SingleParticle p : cowboyList) {
+            p.rateProperty().bind(slider.valueProperty()
+                    .multiply(1));
         }
 
         animationTimer.stop();
@@ -696,7 +701,6 @@ public class Controller {
 
             Double degree = Double.parseDouble(cbParts[7]);
 
-
             CowboyParticle cow_boy = new CowboyParticle(current_cowboy_image, xPos, yPos, vX, vY, null, 10, ammo);
             cow_boy.set_Ultimate(ult);
             cow_boy.set_Degre(degree);
@@ -794,6 +798,17 @@ public class Controller {
 //            pane.getChildren().add(cow_boy);
 
 
+        }
+
+
+        for (SingleParticle p : this.particles) {
+            p.rateProperty().bind(slider.valueProperty()
+                    .multiply(1 / 0.5));
+        }
+
+        for (SingleParticle p : this.cowboyList) {
+            p.rateProperty().bind(slider.valueProperty()
+                    .multiply(1));
         }
     }
 
@@ -893,6 +908,16 @@ public class Controller {
 
         fillParticles();
         chooseWallpaper();
+
+        for (SingleParticle p : particles) {
+            p.rateProperty().bind(slider.valueProperty()
+                    .multiply(1 / 0.5));
+        }
+
+        for (SingleParticle p : cowboyList) {
+            p.rateProperty().bind(slider.valueProperty()
+                    .multiply(1));
+        }
 
     }
 
