@@ -71,6 +71,8 @@ public class Controller {
     protected Stage fenetre_controle = new Stage();
     protected Stage fenetre_help = new Stage();
     private int nbBalles = nbBallesDebut;
+    private double comportement = 0;
+    private double delta = 1.5;
     private int currentWallPaperChoice;
     private Image current_cowboy_image;
     private Image current_obstacle_image;
@@ -86,6 +88,7 @@ public class Controller {
 
         setGame();
 
+        difficute();
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -126,7 +129,6 @@ public class Controller {
 
 
     }
-
 
     public void resetVariables() {
         nbEnnemisCourant = nb; //nombre de particules ennemies
@@ -238,7 +240,8 @@ public class Controller {
             }
 
             DemonParticle dP = new DemonParticle(image, px, py,
-                    vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre);
+                    vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre, comportement, delta);
+            dP.setCowboyParticle(cowboyList);
             particles.add(dP);
             dP.rateProperty().bind(slider.valueProperty()
                     .multiply(1 / 0.3));
@@ -519,9 +522,9 @@ public class Controller {
 
                         genre = random.nextDouble() * 100;
                         DemonParticle dP = new DemonParticle(image, px, py,
-                                vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre);
+                                vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre, comportement, delta);
                         particles.add(dP);
-
+                        dP.setCowboyParticle(cowboyList);
                         dP.rateProperty().bind(slider.valueProperty()
                                 .multiply(1 / 0.3));
 
@@ -926,15 +929,54 @@ public class Controller {
         rejouer();
     }
 
-    public void controle(ActionEvent actionEvent) {
-        animationTimer.stop();
-        fenetre_controle.show();
+    public void controle(ActionEvent actionEvent) throws IOException {
+        /*animationTimer.stop();
+        BufferedReader in = new BufferedReader(new FileReader("Controle.txt"));
+        String ligne = "";
+        String [] touches;
+        String up = "";
+        String down = "";
+        String left = "";
+        String right = "";
+        String ult = "";
+        String fire = "";
+        int i = 0;
+        CowboyParticle cb;
+
+        while((ligne = in.readLine()) != null || i < cowboyList.size()){
+            touches = ligne.split(";");
+            cb = cowboyList.get(i);
+            up = touches[0];
+            left = touches[1];
+            down = touches[2];
+            right = touches[3];
+            ult = touches[4];
+            fire = touches[5];
+            cb.setUp(KeyCode.valueOf(up));
+            cb.setLeft(KeyCode.valueOf(left));
+            cb.setDown(KeyCode.valueOf(down));
+            cb.setRight(KeyCode.valueOf(right));
+            cb.setUlt(KeyCode.valueOf(ult));
+            cb.setFireKey(KeyCode.valueOf(fire));
+            i++;
+        }
+        animationTimer.start();
+        */
     }
 
     public void background(ActionEvent actionEvent) {
+        chooseWallpaper();
     }
 
-    public void difficute(ActionEvent actionEvent) {
+    public void difficute() {
+        for (SingleParticle p : particles) {
+            if (p != null) {
+                if (p instanceof DemonParticle) {
+                    ((DemonParticle) p).set_Comportement(comportement);
+                    ((DemonParticle) p).set_Delta(delta);
+                }
+            }
+        }
     }
 
     public void createPlayer(ActionEvent actionEvent) {
@@ -948,6 +990,47 @@ public class Controller {
     }
 
     public void removePlayer(ActionEvent actionEvent) {
+        if (cowboyList.size() == 1) {
+            defaite();
+        } else {
+            CowboyParticle cb = cowboyList.get(cowboyList.size() - 1);
+            cowboyList.remove(cb);
+            pane.getChildren().remove(cb);
+        }
     }
+
+    public void difficute_facile(ActionEvent actionEvent) {
+        animationTimer.stop();
+        comportement = 0;
+        delta = 1;
+        difficute();
+        animationTimer.start();
+    }
+
+    public void difficute_normal(ActionEvent actionEvent) {
+        animationTimer.stop();
+        comportement = 0;
+        delta = 1.5;
+        difficute();
+        animationTimer.start();
+    }
+
+    public void difficute_difficile(ActionEvent actionEvent) {
+        animationTimer.stop();
+        comportement = 1;
+        delta = 1.5;
+        difficute();
+        animationTimer.start();
+    }
+
+    public void difficute_impossible(ActionEvent actionEvent) {
+        animationTimer.stop();
+        comportement = 1;
+        delta = 2;
+        difficute();
+        animationTimer.start();
+    }
+
+
 }
 

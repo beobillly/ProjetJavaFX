@@ -6,34 +6,40 @@
     <top>
         <MenuBar useSystemMenuBar="true">
             <Menu text="Fichier">
+                <MenuItem text="Jouer" onAction="#jouer" accelerator="shortcut+J">
+                </MenuItem>
+                <MenuItem text="Pause" onAction="#pause" accelerator="shortcut+P">
+                </MenuItem>
                 <MenuItem text="Recommencer" onAction="#relancer" accelerator="shortcut+R">
                 </MenuItem>
                 <MenuItem text="Sauvegarder" onAction="#sauvegarder" accelerator="shortcut+S">
                 </MenuItem>
                 <MenuItem text="Quitter" onAction="#quitter" accelerator="shortcut+Q">
                 </MenuItem>
-
             </Menu>
             <Menu text="Options">
-                <MenuItem text="Jouer" onAction="#jouer" accelerator="shortcut+J">
-                </MenuItem>
-                <MenuItem text="Pause" onAction="#pause" accelerator="shortcut+P">
-                </MenuItem>
                 <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+C">
                 </MenuItem>
                 <MenuItem text="Changer le background" onAction="#background" accelerator="shortcut+B">
                 </MenuItem>
-                <MenuItem text="Changer la difficulté" onAction="#difficute" accelerator="shortcut+D">
+            </Menu>
+            <Menu text="Difficulté">
+                <MenuItem text="Facile" onAction="#difficute_facile" accelerator="shortcut+F">
                 </MenuItem>
-
+                <MenuItem text="Normal" onAction="#difficute_normal" accelerator="shortcut+N">
+                </MenuItem>
+                <MenuItem text="Difficile" onAction="#difficute_difficile" accelerator="shortcut+D">
+                </MenuItem>
+                <MenuItem text="Impossible" onAction="#difficute_impossible" accelerator="shortcut+I">
+                </MenuItem>
             </Menu>
 
             <Menu text="Multijoueur">
-                <MenuItem text="Ajouter un joueur" onAction="#createPlayer" accelerator="shortcut+H">
+                <MenuItem text="Ajouter un joueur" onAction="#createPlayer" accelerator="shortcut+A">
                 </MenuItem>
-                <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+H">
+                <MenuItem text="Changer les contrôles" onAction="#controle" accelerator="shortcut+G">
                 </MenuItem>
-                <MenuItem text="Enlever un joueur" onAction="#removePlayer" accelerator="shortcut+H">
+                <MenuItem text="Enlever un joueur" onAction="#removePlayer" accelerator="shortcut+E">
                 </MenuItem>
             </Menu>
 
@@ -73,6 +79,12 @@
                         <Label fx:id="label_Direction">
 
                         </Label>
+                        <Button text="Play" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                                fx:id="playButton" onAction="#jouer">
+                        </Button>
+                        <Button text="Pause" alignment="center" prefWidth="80.0" prefHeight="80.0"
+                                fx:id="pauseButton" onAction="#pause">
+                        </Button>
                         <Button text="Save" alignment="center" prefWidth="80.0" prefHeight="80.0"
                                 fx:id="saveButton" onAction="#sauvegarder">
                         </Button>
