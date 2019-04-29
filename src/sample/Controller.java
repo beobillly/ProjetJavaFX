@@ -55,7 +55,7 @@ public class Controller {
 
     protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
-    private final int nb = 10; //nombre de particules ennemies en début de partie
+    private final int nb = 3; //nombre de particules ennemies en début de partie
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
     private final int nbObstacles = 5;//nombre d'obstacles
@@ -743,8 +743,9 @@ public class Controller {
                 Double genre = Double.parseDouble(pParts[5]);
 
 
-                DemonParticle dP = new DemonParticle((genre < 50) ? current_demon_m_image : current_demon_f_image, xPos, yPos, vX, vY, current_audio_clip, 0, 0, 0, 0, genre);
+                DemonParticle dP = new DemonParticle((genre < 50) ? current_demon_m_image : current_demon_f_image, xPos, yPos, vX, vY, current_audio_clip, 0, 0, 0, 0, genre, comportement, delta);
                 this.particles.add(dP);
+                dP.setCowboyParticle(cowboyList);
                 pane.getChildren().add(dP);
             }
 

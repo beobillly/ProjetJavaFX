@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Balles marche nb d'ennemi majoré, obstacles marchent">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="sauvegarde marche">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sauvegarde.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sauvegarde.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
@@ -63,19 +63,27 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5266932">
+    <splitter split-orientation="horizontal" split-proportion="0.5243205">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="303">
-                  <caret line="57" column="29" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+                <state relative-caret-position="261">
+                  <caret line="747" column="49" selection-start-line="747" selection-start-column="49" selection-end-line="747" selection-end-column="49" />
                   <folding>
-                    <element signature="e#25767#25768#0" expanded="true" />
-                    <element signature="e#25805#25806#0" expanded="true" />
-                    <element signature="e#26751#26752#0" expanded="true" />
-                    <element signature="e#26776#26777#0" expanded="true" />
+                    <element signature="e#2683#3193#0" expanded="true" />
+                    <element signature="e#3192#3193#0" expanded="true" />
+                    <element signature="e#3664#3665#0" expanded="true" />
+                    <element signature="e#3733#3734#0" expanded="true" />
+                    <element signature="e#21095#21096#0" expanded="true" />
+                    <element signature="e#21126#21127#0" expanded="true" />
+                    <element signature="e#30433#30434#0" expanded="true" />
+                    <element signature="e#30471#30472#0" expanded="true" />
+                    <element signature="e#31720#31721#0" expanded="true" />
+                    <element signature="e#31745#31746#0" expanded="true" />
+                    <element signature="e#32930#32931#0" expanded="true" />
+                    <element signature="e#32963#32964#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -85,7 +93,7 @@
             <entry file="file://$PROJECT_DIR$/sauvegarde.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state>
-                  <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+                  <caret column="18" selection-start-column="18" selection-end-column="18" />
                 </state>
               </provider>
             </entry>
@@ -115,8 +123,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/sample/CowboyParticle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="125">
-                  <caret line="227" column="19" lean-forward="true" selection-start-line="227" selection-start-column="19" selection-end-line="227" selection-end-column="19" />
+                <state relative-caret-position="2640">
+                  <caret line="226" column="19" selection-start-line="226" selection-start-column="19" selection-end-line="226" selection-end-column="19" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -127,7 +135,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/sample/ObstacleParticle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
+                <state relative-caret-position="450">
                   <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -139,7 +147,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/sample/IO.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
+                <state relative-caret-position="450">
                   <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -155,7 +163,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/sample/BulletParticle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
+                <state relative-caret-position="1305">
                   <caret line="96" selection-start-line="96" selection-end-line="96" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -176,11 +184,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/sample/CowboyParticle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="149">
-                  <caret line="44" column="19" lean-forward="true" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
+                <state relative-caret-position="299">
+                  <caret line="54" column="24" lean-forward="true" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -188,14 +196,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/sample/DemonParticle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="171">
+                  <caret line="89" selection-start-line="89" selection-end-line="89" />
                 </state>
               </provider>
             </entry>
@@ -214,7 +219,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new C</find>
       <find>new</find>
       <find>new Cow</find>
       <find>cb</find>
@@ -244,6 +248,7 @@
       <find>current_bullet_image</find>
       <find>curr</find>
       <find>slider</find>
+      <find>cha</find>
     </findStrings>
     <replaceStrings>
       <replace>SerializableSimpleDoubleProperty</replace>
@@ -315,32 +320,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ProjetJavaFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetJavaFX" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetJavaFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetJavaFX" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetJavaFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetJavaFX" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -585,7 +565,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556373069651</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="sauvegarde marche">
+      <created>1556542677340</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1556542677340</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -601,7 +588,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="827" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.102288984" />
@@ -613,7 +600,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23673469" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23673469" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -725,7 +712,8 @@
     <MESSAGE value="Balles marche nb d'ennemi majoré, obstacles marchent" />
     <MESSAGE value="Multijoueur marche nickel" />
     <MESSAGE value="Sauvegarde et chargement marchent (enfin)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sauvegarde et chargement marchent (enfin)" />
+    <MESSAGE value="sauvegarde marche" />
+    <option name="LAST_COMMIT_MESSAGE" value="sauvegarde marche" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -913,6 +901,16 @@
     <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/save.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sauvegarde.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/SerializableSimpleDoubleProperty.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -933,7 +931,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/IO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="450">
           <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -941,40 +939,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/save.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/sample/BulletParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ObstacleParticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
+        <state relative-caret-position="450">
           <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/DemonParticle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sauvegarde.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/BulletParticle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -983,23 +961,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/CowboyParticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="227" column="19" lean-forward="true" selection-start-line="227" selection-start-column="19" selection-end-line="227" selection-end-column="19" />
+        <state relative-caret-position="2640">
+          <caret line="226" column="19" selection-start-line="226" selection-start-column="19" selection-end-line="226" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/DemonParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="57" column="29" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+        <state relative-caret-position="261">
+          <caret line="747" column="49" selection-start-line="747" selection-start-column="49" selection-end-line="747" selection-end-column="49" />
           <folding>
-            <element signature="e#25767#25768#0" expanded="true" />
-            <element signature="e#25805#25806#0" expanded="true" />
-            <element signature="e#26751#26752#0" expanded="true" />
-            <element signature="e#26776#26777#0" expanded="true" />
+            <element signature="e#2683#3193#0" expanded="true" />
+            <element signature="e#3192#3193#0" expanded="true" />
+            <element signature="e#3664#3665#0" expanded="true" />
+            <element signature="e#3733#3734#0" expanded="true" />
+            <element signature="e#21095#21096#0" expanded="true" />
+            <element signature="e#21126#21127#0" expanded="true" />
+            <element signature="e#30433#30434#0" expanded="true" />
+            <element signature="e#30471#30472#0" expanded="true" />
+            <element signature="e#31720#31721#0" expanded="true" />
+            <element signature="e#31745#31746#0" expanded="true" />
+            <element signature="e#32930#32931#0" expanded="true" />
+            <element signature="e#32963#32964#0" expanded="true" />
           </folding>
         </state>
       </provider>
