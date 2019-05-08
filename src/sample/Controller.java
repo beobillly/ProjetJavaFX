@@ -57,18 +57,17 @@ public class Controller {
 
     protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
-    private final int nb = 30; //nombre de particules ennemies en début de partie
+    private final int nb = 7; //nombre de particules ennemies en début de partie
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
     private final int nbObstacles = 5;//nombre d'obstacles
     private final int nbBallesDebut = 30;
     private int nbEnnemisCourant = nb; //nombre d'ennemis sur l'arene;
     private double bulletSpeed = 10; //Vitesse des balles
-    private int nbEnnemisMax = 20; //nb d'ennemis maximal sur l'arene
+    private int nbEnnemisMax = 15; //nb d'ennemis maximal sur l'arene
     protected Stage fenetre_lose = new Stage();
     int mode = 1;//mode de déplacement
     protected Stage fenetre_win = new Stage();
-    //    private CowboyParticle cowboy;
     private ArrayList<CowboyParticle> cowboyList;
     protected Stage fenetre_controle = new Stage();
     protected Stage fenetre_help = new Stage();
@@ -87,6 +86,8 @@ public class Controller {
     private AudioClip current_death_audio_clip;
     private AudioClip current_background_audio_clip;
     private AudioClip current_victory_audio_clip;
+    private AudioClip current_ult_audio_clip;
+    private AudioClip current_fire_audio_clip;
 
 
     @FXML
@@ -101,11 +102,19 @@ public class Controller {
         current_background_audio_clip = new AudioClip(getClass()
                 .getResource("ressources/Mexican Mariachi Music.mp3").toString());
 
+        current_background_audio_clip.setVolume(0.2);
+
         current_death_audio_clip = new AudioClip(getClass()
                 .getResource("ressources/Bruh Sound Effect #2.mp3").toString());
 
         current_victory_audio_clip = new AudioClip(getClass()
                 .getResource("ressources/Tuturu.mp3").toString());
+
+        current_ult_audio_clip = new AudioClip(getClass()
+                .getResource("ressources/highNoon.mp3").toString());
+
+        current_fire_audio_clip = new AudioClip(getClass()
+                .getResource("ressources/bang.mp3").toString());
 
         current_background_audio_clip.play();
 
@@ -200,9 +209,6 @@ public class Controller {
         url = getClass().getResource("ressources/demon_m_dead.png");
         current_demon_m_dead_image = new Image(url.toString());
 
-//        current_demon_f_dead_image = demon_f_dead;
-//        current_demon_m_dead_image = demon_m_dead;
-
         Random random = new Random(System.nanoTime());
 
 
@@ -245,14 +251,14 @@ public class Controller {
                 py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
 
                 for (int n = 0; n < nbObstacles; n++) {
-                    if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth() - 10 && Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight() - 10) {
+                    if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth() - 30 && Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight() - 30) {
                         pass = false;
                         break;
                     }
 
                 }
                 for (CowboyParticle cb : cowboyList)
-                    if ((Math.abs(px - cb.getX()) < cb.getFitWidth() + image.getWidth() - 10) && (Math.abs(py - cb.getY()) < cb.getFitWidth() + image.getHeight() - 10)) {
+                    if ((Math.abs(px - cb.getX()) < cb.getFitWidth() + image.getWidth() - 30) && (Math.abs(py - cb.getY()) < cb.getFitWidth() + image.getHeight() - 30)) {
                         pass = false;
                     }
 
@@ -307,6 +313,7 @@ public class Controller {
         pane.setBackground(new Background(new BackgroundImage(fond_ecran.get(choix), null, null, null, null)));
     }
 
+    //fonction ui prépare le jeu niveau modèle
     private void setGame() {
         particles = new ArrayList<SingleParticle>();
         fond_ecran = new ArrayList<Image>();
@@ -351,6 +358,7 @@ public class Controller {
                         particles.add(new BulletParticle(image, cb.getX(), cb.getY(), bulletSpeed * Math.cos(Math.toRadians(cb.get_Degre() - 90)), bulletSpeed * Math.sin(Math.toRadians(cb.get_Degre() - 90)), null));
                         pane.getChildren().add(particles.get(particles.size() - 1));
                         cb.set_Munitions(cb.get_Munitions() - 1);
+                        current_fire_audio_clip.play(0.1);
                     }
                 } else if (kC == cb.getUltKey()) {
                     itsHighNoooooon(null);
@@ -493,13 +501,13 @@ public class Controller {
                                 current_death_audio_clip.play();
                             } else {
                                 try {
-                                    sleep(400);
+                                    sleep(300);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                                 ennemis_Mort++;
                                 nbEnnemisCourant--;
-                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 15);
                                 pane.getChildren().remove(particles.get(j));
                                 particles.remove(j);
                                 j--;
@@ -524,13 +532,13 @@ public class Controller {
                                 current_death_audio_clip.play();
                             } else {
                                 try {
-                                    sleep(400);
+                                    sleep(300);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                                 ennemis_Mort++;
                                 nbEnnemisCourant--;
-                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 15);
                                 pane.getChildren().remove(particles.get(i));
                                 particles.remove(i);
                                 i--;
@@ -554,7 +562,7 @@ public class Controller {
                             }
                             ennemis_Mort++;
                             nbEnnemisCourant--;
-                            cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+                            cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 15);
                             pane.getChildren().remove(particles.get(j));
                             particles.remove(j);
                             j--;
@@ -581,7 +589,7 @@ public class Controller {
                             py = random.nextDouble() * (pane.getPrefHeight() - image.getHeight());
 
                             for (int n = 0; n < nbObstacles; n++) {
-                                if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth() && Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight()) {
+                                if (Math.abs(px - particles.get(n).getX()) < particles.get(n).getFitWidth() + image.getWidth() - 30 && Math.abs(py - particles.get(n).getY()) < particles.get(n).getFitHeight() + image.getHeight() - 30) {
                                     pass = false;
                                     break;
                                 }
@@ -589,7 +597,7 @@ public class Controller {
                             }
 
                             for (CowboyParticle cb : cowboyList) {
-                                if ((Math.abs(px - cb.getX()) < cb.getFitWidth() + image.getWidth() - 10) && (Math.abs(py - cb.getY()) < cb.getFitWidth() + image.getHeight() - 10)) {
+                                if ((Math.abs(px - cb.getX()) < cb.getFitWidth() + image.getWidth() - 30) && (Math.abs(py - cb.getY()) < cb.getFitWidth() + image.getHeight() - 30)) {
                                     pass = false;
                                 }
                             }
@@ -636,7 +644,7 @@ public class Controller {
         }
     }
 
-
+    //Fonction qui charge les fenetres
     private void initStages() {
         Parent root = null;
         try {
@@ -723,12 +731,6 @@ public class Controller {
         String[] groupes = new String[4];
         groupes = content.split("%");
 
-        for (String groupe : groupes) {
-            System.out.println(groupe);
-            System.out.println();
-            System.out.println();
-        }
-
         String modeACharger = groupes[0];
 
         String[] cowboys = groupes[1].split("PARTICLE");
@@ -753,18 +755,9 @@ public class Controller {
         resetCowboys();
         resetParticles();
 
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("------------------------------");
 
         for (int ind = 1; ind < cowboys.length; ind++) {
 
-            System.out.println(cowboys[ind]);
             String[] cbParts = cowboys[ind].split("#");
 
             String[] XandY = cbParts[3].split(";");
@@ -795,7 +788,6 @@ public class Controller {
 
         for (int ind = 1; ind < particles.length; ind++) {
 
-            System.out.println(particles[ind]);
 
             String[] pParts = particles[ind].split("#");
 
@@ -829,22 +821,17 @@ public class Controller {
             }
 
             if (pParts[1].equals("BULLET")) {
-                System.out.println("Je rentre là");
                 String[] XandY = pParts[3].split(";");
                 assert XandY.length == 2;
                 Double xPos = Double.parseDouble(XandY[0]);
                 Double yPos = Double.parseDouble(XandY[1]);
 
-                System.out.println(xPos);
-                System.out.println(yPos);
 
                 String[] VXandVY = pParts[4].split(";");
                 assert VXandVY.length == 2;
                 Double vX = Double.parseDouble(VXandVY[0]);
                 Double vY = Double.parseDouble(VXandVY[1]);
 
-                System.out.println(vX);
-                System.out.println(vY);
 
 
                 URL url = getClass().getResource("ressources/Advanced_Sniper_Bullet-ConvertImage.png");
@@ -944,6 +931,13 @@ public class Controller {
 
         if (cowboyList.get(0).get_Ultimate() >= 100) {
             animationTimer.stop();
+            current_ult_audio_clip.play();
+            try {
+                sleep(2000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            current_fire_audio_clip.play();
             double cowboy_px = cowboyList.get(0).getX();
             double cowboy_py = cowboyList.get(0).getY();
             double cowboy_degree = cowboyList.get(0).get_Degre();
@@ -995,10 +989,15 @@ public class Controller {
     }
 
     public void pause(ActionEvent actionEvent) {
+
+        if (current_background_audio_clip.isPlaying())
+            current_background_audio_clip.stop();
         animationTimer.stop();
     }
 
     public void jouer(ActionEvent actionEvent) {
+        if (!current_background_audio_clip.isPlaying())
+            current_background_audio_clip.play();
         animationTimer.start();
     }
 
@@ -1048,8 +1047,8 @@ public class Controller {
                     .multiply(1));
         }
 
-        current_background_audio_clip.play();
-
+        if (!current_background_audio_clip.isPlaying())
+            current_background_audio_clip.play();
     }
 
 
