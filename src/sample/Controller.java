@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
 import static javafx.scene.input.KeyCode.*;
 
 public class Controller {
@@ -79,6 +80,8 @@ public class Controller {
     private Image current_obstacle_image;
     private Image current_demon_f_image;
     private Image current_demon_m_image;
+    private Image current_demon_f_dead_image;
+    private Image current_demon_m_dead_image;
     private Image current_bullet_image;
     private AudioClip current_audio_clip;
 
@@ -170,6 +173,14 @@ public class Controller {
 
         current_demon_f_image = demon_f;
         current_demon_m_image = demon_m;
+
+        url = getClass().getResource("ressources/demon_f_dead.png");
+        current_demon_f_dead_image = new Image(url.toString());
+        url = getClass().getResource("ressources/demon_m_dead.png");
+        current_demon_m_dead_image = new Image(url.toString());
+
+//        current_demon_f_dead_image = demon_f_dead;
+//        current_demon_m_dead_image = demon_m_dead;
 
         Random random = new Random(System.nanoTime());
 
@@ -449,40 +460,76 @@ public class Controller {
 
                         if (particles.get(j) instanceof DemonParticle) {
 
-                            ennemis_Mort++;
-                            nbEnnemisCourant--;
-                            cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+
+                            if (!(particles.get(j).isDying())) {
+                                particles.get(j).setImage(particles.get(j).get_Genre() < 50 ? current_demon_m_dead_image : current_demon_f_dead_image);
+                                particles.get(j).touer();
+                            } else {
+                                try {
+                                    sleep(1000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                ennemis_Mort++;
+                                nbEnnemisCourant--;
+                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+                                pane.getChildren().remove(particles.get(j));
+                                particles.remove(j);
+                                j--;
+                            }
+
                         }
 
                         pane.getChildren().remove(particles.get(j));
                         particles.remove(j);
                         j--;
-
 
                     }
                     if (particles.get(j) instanceof BulletParticle) {
 
+
                         if (particles.get(i) instanceof DemonParticle) {
 
+
+                            if (!(particles.get(i).isDying())) {
+                                particles.get(i).setImage(particles.get(i).get_Genre() < 50 ? current_demon_m_dead_image : current_demon_f_dead_image);
+                                particles.get(i).touer();
+                            } else {
+                                try {
+                                    sleep(1000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                ennemis_Mort++;
+                                nbEnnemisCourant--;
+                                cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
+                                pane.getChildren().remove(particles.get(i));
+                                particles.remove(i);
+                                i--;
+                            }
+
+                        } else {
+                            pane.getChildren().remove(particles.get(i));
+                            particles.remove(i);
+                            i--;
+                        }
+                    } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
+
+                        if (!(particles.get(j).isDying())) {
+                            particles.get(j).setImage(current_demon_m_dead_image);
+                            particles.get(j).touer();
+                        } else {
+                            try {
+                                sleep(1000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             ennemis_Mort++;
                             nbEnnemisCourant--;
                             cowboyList.get(0).set_Ultimate(cowboyList.get(0).get_Ultimate() + 5);
-                        }
-
-                        pane.getChildren().remove(particles.get(i));
-                        particles.remove(i);
-                        i--;
-
-
-                    } else if (particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() < 50) {
-
-                        pane.getChildren().remove(particles.get(j));
-                        particles.remove(j);
-                        j--;
-                        ennemis_Mort++;
-                        nbEnnemisCourant--;
-                        for (CowboyParticle cb : cowboyList) {
-                            cb.set_Ultimate(cb.get_Ultimate() + 5);
+                            pane.getChildren().remove(particles.get(j));
+                            particles.remove(j);
+                            j--;
                         }
 
                     } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() >= 50) || (particles.get(i).get_Genre() >= 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles) < nbEnnemisMax) {
@@ -819,7 +866,14 @@ public class Controller {
                     .multiply(1));
         }
 
-        changerControle();
+
+        try {
+            changerControle();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void changerControle() throws IOException {
