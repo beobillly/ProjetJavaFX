@@ -72,7 +72,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="281">
+                <state relative-caret-position="1972">
                   <caret line="204" column="56" selection-start-line="204" selection-start-column="56" selection-end-line="204" selection-end-column="56" />
                   <folding>
                     <element signature="e#2843#3353#0" expanded="true" />
@@ -313,7 +313,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -343,6 +342,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -636,7 +636,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="832" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.25250357" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -1052,7 +1051,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
+        <state relative-caret-position="1972">
           <caret line="204" column="56" selection-start-line="204" selection-start-column="56" selection-end-line="204" selection-end-column="56" />
           <folding>
             <element signature="e#2843#3353#0" expanded="true" />
