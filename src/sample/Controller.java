@@ -175,12 +175,12 @@ public class Controller {
         current_demon_m_image = demon_m;
 
         url = getClass().getResource("ressources/demon_f_dead.png");
-        Image demon_f_dead = new Image(url.toString());
+        current_demon_f_dead_image = new Image(url.toString());
         url = getClass().getResource("ressources/demon_m_dead.png");
-        Image demon_m_dead = new Image(url.toString());
+        current_demon_m_dead_image = new Image(url.toString());
 
-        current_demon_f_dead_image = demon_f_dead;
-        current_demon_m_dead_image = demon_m_dead;
+//        current_demon_f_dead_image = demon_f_dead;
+//        current_demon_m_dead_image = demon_m_dead;
 
         Random random = new Random(System.nanoTime());
 
