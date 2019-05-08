@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Musique">
-      <change afterPath="$PROJECT_DIR$/src/sample/ressources/Bruh Sound Effect #2.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/ressources/Cartoon Boing Sound Effect.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/ressources/Mexican Mariachi Music.mp3" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="merge ok">
+      <change afterPath="$PROJECT_DIR$/src/sample/ressources/Tuturu.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controle.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Controle.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -72,21 +69,25 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1972">
-                  <caret line="204" column="56" selection-start-line="204" selection-start-column="56" selection-end-line="204" selection-end-column="56" />
+                <state relative-caret-position="75">
+                  <caret line="1018" column="45" selection-start-line="1018" selection-start-column="45" selection-end-line="1018" selection-end-column="45" />
                   <folding>
-                    <element signature="e#2843#3353#0" expanded="true" />
-                    <element signature="e#3352#3353#0" expanded="true" />
-                    <element signature="e#3824#3825#0" expanded="true" />
-                    <element signature="e#3893#3894#0" expanded="true" />
-                    <element signature="e#23754#23755#0" expanded="true" />
-                    <element signature="e#23785#23786#0" expanded="true" />
-                    <element signature="e#34427#34428#0" expanded="true" />
-                    <element signature="e#34465#34466#0" expanded="true" />
-                    <element signature="e#35714#35715#0" expanded="true" />
-                    <element signature="e#35739#35740#0" expanded="true" />
-                    <element signature="e#35588#35589#0" expanded="true" />
-                    <element signature="e#35621#35622#0" expanded="true" />
+                    <element signature="e#3284#3794#0" expanded="true" />
+                    <element signature="e#3793#3794#0" expanded="true" />
+                    <element signature="e#4266#4267#0" expanded="true" />
+                    <element signature="e#4335#4336#0" expanded="true" />
+                    <element signature="e#24463#24464#0" expanded="true" />
+                    <element signature="e#24494#24495#0" expanded="true" />
+                    <element signature="e#35237#35238#0" expanded="true" />
+                    <element signature="e#35274#35275#0" expanded="true" />
+                    <element signature="e#35324#35325#0" expanded="true" />
+                    <element signature="e#35362#35363#0" expanded="true" />
+                    <element signature="e#36434#36435#0" expanded="true" />
+                    <element signature="e#36459#36460#0" expanded="true" />
+                    <element signature="e#36619#36620#0" expanded="true" />
+                    <element signature="e#36652#36653#0" expanded="true" />
+                    <element signature="e#38833#38834#0" expanded="true" />
+                    <element signature="e#38863#38864#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -207,8 +208,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>System.ou</find>
-      <find>system.ou</find>
       <find>charge</find>
       <find>\n</find>
       <find>collis</find>
@@ -227,7 +226,6 @@
       <find>url</find>
       <find>collisio</find>
       <find>collisi</find>
-      <find>victoire</find>
       <find>j</find>
       <find>obstacle</find>
       <find>current</find>
@@ -237,6 +235,9 @@
       <find>audioclip</find>
       <find>audio</find>
       <find>current_audio</find>
+      <find>victoire</find>
+      <find>touer</find>
+      <find>currenT_BACKGROUN</find>
     </findStrings>
     <replaceStrings>
       <replace>SerializableSimpleDoubleProperty</replace>
@@ -619,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557316394552</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="merge ok">
+      <created>1557320026076</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1557320026076</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -636,6 +644,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="832" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.25250357" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -762,7 +771,8 @@
     <MESSAGE value="mort demons ok" />
     <MESSAGE value="Animation mort ok debuggée" />
     <MESSAGE value="Merge OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge OK" />
+    <MESSAGE value="merge ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge ok" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1051,21 +1061,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1972">
-          <caret line="204" column="56" selection-start-line="204" selection-start-column="56" selection-end-line="204" selection-end-column="56" />
+        <state relative-caret-position="75">
+          <caret line="1018" column="45" selection-start-line="1018" selection-start-column="45" selection-end-line="1018" selection-end-column="45" />
           <folding>
-            <element signature="e#2843#3353#0" expanded="true" />
-            <element signature="e#3352#3353#0" expanded="true" />
-            <element signature="e#3824#3825#0" expanded="true" />
-            <element signature="e#3893#3894#0" expanded="true" />
-            <element signature="e#23754#23755#0" expanded="true" />
-            <element signature="e#23785#23786#0" expanded="true" />
-            <element signature="e#34427#34428#0" expanded="true" />
-            <element signature="e#34465#34466#0" expanded="true" />
-            <element signature="e#35714#35715#0" expanded="true" />
-            <element signature="e#35739#35740#0" expanded="true" />
-            <element signature="e#35588#35589#0" expanded="true" />
-            <element signature="e#35621#35622#0" expanded="true" />
+            <element signature="e#3284#3794#0" expanded="true" />
+            <element signature="e#3793#3794#0" expanded="true" />
+            <element signature="e#4266#4267#0" expanded="true" />
+            <element signature="e#4335#4336#0" expanded="true" />
+            <element signature="e#24463#24464#0" expanded="true" />
+            <element signature="e#24494#24495#0" expanded="true" />
+            <element signature="e#35237#35238#0" expanded="true" />
+            <element signature="e#35274#35275#0" expanded="true" />
+            <element signature="e#35324#35325#0" expanded="true" />
+            <element signature="e#35362#35363#0" expanded="true" />
+            <element signature="e#36434#36435#0" expanded="true" />
+            <element signature="e#36459#36460#0" expanded="true" />
+            <element signature="e#36619#36620#0" expanded="true" />
+            <element signature="e#36652#36653#0" expanded="true" />
+            <element signature="e#38833#38834#0" expanded="true" />
+            <element signature="e#38863#38864#0" expanded="true" />
           </folding>
         </state>
       </provider>

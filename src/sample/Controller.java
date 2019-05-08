@@ -86,6 +86,8 @@ public class Controller {
     private AudioClip current_audio_clip;
     private AudioClip current_death_audio_clip;
     private AudioClip current_background_audio_clip;
+    private AudioClip current_victory_audio_clip;
+
 
     @FXML
     private void initialize() {
@@ -101,6 +103,9 @@ public class Controller {
 
         current_death_audio_clip = new AudioClip(getClass()
                 .getResource("ressources/Bruh Sound Effect #2.mp3").toString());
+
+        current_victory_audio_clip = new AudioClip(getClass()
+                .getResource("ressources/Tuturu.mp3").toString());
 
         current_background_audio_clip.play();
 
@@ -986,7 +991,6 @@ public class Controller {
 
     public void pause(ActionEvent actionEvent) {
         animationTimer.stop();
-
     }
 
     public void jouer(ActionEvent actionEvent) {
@@ -1012,6 +1016,7 @@ public class Controller {
 
     private void rejouer() {
 
+        current_background_audio_clip.stop();
         animationTimer.stop();
         resetParticles();
         resetVariables();
@@ -1036,6 +1041,8 @@ public class Controller {
             p.rateProperty().bind(slider.valueProperty()
                     .multiply(1));
         }
+
+        current_background_audio_clip.play();
 
     }
 
