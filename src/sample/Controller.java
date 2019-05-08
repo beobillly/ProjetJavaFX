@@ -232,8 +232,8 @@ public class Controller {
                 }
                 for (CowboyParticle cb : cowboyList)
                     if ((Math.abs(px - cb.getX()) < cb.getFitWidth() + image.getWidth() - 10) && (Math.abs(py - cb.getY()) < cb.getFitWidth() + image.getHeight() - 10)) {
-                    pass = false;
-                }
+                        pass = false;
+                    }
 
 
             } while (!pass);
@@ -385,12 +385,6 @@ public class Controller {
 
     }
 
-    private boolean touer(DemonParticle dP) {
-
-
-        return true;
-    }
-
     public void manageCollisions() {
 
         URL url = getClass().getResource("ressources/demon_f.png");
@@ -405,7 +399,7 @@ public class Controller {
         AudioClip audioClip = new AudioClip(getClass()
                 .getResource("ressources/1967.wav").toString());
 
-                /*pour chaque couple de particules
+        /*pour chaque couple de particules
                 verifier si les deux particules chevauchent.
                 Si c'est le cas, gérer les collisions
                 */
@@ -538,7 +532,7 @@ public class Controller {
                             j--;
                         }
 
-                    } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() > 50) || (particles.get(i).get_Genre() > 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles) < nbEnnemisMax) {
+                    } else if (((particles.get(i).get_Genre() < 50 && particles.get(j).get_Genre() >= 50) || (particles.get(i).get_Genre() >= 50 && particles.get(j).get_Genre() < 50)) && (particles.size() - nbObstacles) < nbEnnemisMax) {
 
                         Image image = ((i & 1) == 1) ? demon_m : demon_f;
                         double px;
@@ -575,6 +569,9 @@ public class Controller {
                         } while (!pass);
 
                         genre = random.nextDouble() * 100;
+                        if (genre < 50) {
+                            image = demon_m;
+                        } else image = demon_f;
                         DemonParticle dP = new DemonParticle(image, px, py,
                                 vx, vy, audioClip, 0.0, 1.0, 0.0, 0.0, genre, comportement, delta);
                         particles.add(dP);
@@ -683,7 +680,7 @@ public class Controller {
         }
     }
 
-    public void charger() {
+    public void charger() throws IOException {
 
         String content = "";
 
@@ -868,6 +865,51 @@ public class Controller {
             p.rateProperty().bind(slider.valueProperty()
                     .multiply(1));
         }
+
+
+        try {
+            changerControle();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    void changerControle() throws IOException {
+        animationTimer.stop();
+        BufferedReader in;
+        in = new BufferedReader(new FileReader("Controle.txt"));
+        String ligne = "";
+        String[] touches;
+        String up = "";
+        String down = "";
+        String left = "";
+        String right = "";
+        String ult = "";
+        String fire = "";
+        int i = 0;
+        CowboyParticle cb;
+
+        while ((ligne = in.readLine()) != null && i < cowboyList.size()) {
+            touches = ligne.split(";");
+            cb = cowboyList.get(i);
+            up = touches[0];
+            left = touches[1];
+            down = touches[2];
+            right = touches[3];
+            ult = touches[4];
+            fire = touches[5];
+            cb.setUp(KeyCode.valueOf(up));
+            cb.setLeft(KeyCode.valueOf(left));
+            cb.setDown(KeyCode.valueOf(down));
+            cb.setRight(KeyCode.valueOf(right));
+            cb.setUlt(KeyCode.valueOf(ult));
+            cb.setFireKey(KeyCode.valueOf(fire));
+            i++;
+        }
+        animationTimer.start();
+
     }
 
     public void itsHighNoooooon(ActionEvent actionEvent) {
@@ -985,37 +1027,7 @@ public class Controller {
     }
 
     public void controle(ActionEvent actionEvent) throws IOException {
-        animationTimer.stop();
-        BufferedReader in = new BufferedReader(new FileReader("Controle.txt"));
-        String ligne = "";
-        String [] touches;
-        String up = "";
-        String down = "";
-        String left = "";
-        String right = "";
-        String ult = "";
-        String fire = "";
-        int i = 0;
-        CowboyParticle cb;
-
-        while ((ligne = in.readLine()) != null && i < cowboyList.size()) {
-            touches = ligne.split(";");
-            cb = cowboyList.get(i);
-            up = touches[0];
-            left = touches[1];
-            down = touches[2];
-            right = touches[3];
-            ult = touches[4];
-            fire = touches[5];
-            cb.setUp(KeyCode.valueOf(up));
-            cb.setLeft(KeyCode.valueOf(left));
-            cb.setDown(KeyCode.valueOf(down));
-            cb.setRight(KeyCode.valueOf(right));
-            cb.setUlt(KeyCode.valueOf(ult));
-            cb.setFireKey(KeyCode.valueOf(fire));
-            i++;
-        }
-        animationTimer.start();
+        changerControle();
     }
 
     public void background(ActionEvent actionEvent) {
