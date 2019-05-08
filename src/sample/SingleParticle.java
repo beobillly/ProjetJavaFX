@@ -19,7 +19,6 @@ abstract class SingleParticle extends ImageView implements Serializable {
     final DoubleProperty vx = new SerializableSimpleDoubleProperty();
     final DoubleProperty vy = new SerializableSimpleDoubleProperty();
     final DoubleProperty mass = new SerializableSimpleDoubleProperty(1.0);
-
     final DoubleProperty degre = new SerializableSimpleDoubleProperty(0.0);
 
     /*  ax,ay - l'axe de personnage.
@@ -38,6 +37,9 @@ abstract class SingleParticle extends ImageView implements Serializable {
     //coefficient de vitesse,
     //la vitesse de la particule est multipliée par la valeur de rate
     final DoubleProperty rate = new SerializableSimpleDoubleProperty(0.1);
+
+    //boolean pour voir si il est en train de mourrir
+    private boolean mourant = false;
     /* le constructeur prend en parametre :
        - un Image (une petite icone) qui represent un personage (animal etc),
        - (x,y) la position initiale de l'objet
@@ -51,22 +53,6 @@ abstract class SingleParticle extends ImageView implements Serializable {
 
     */
 
-    abstract protected void writeParticle(FileWriter writer) throws IOException;
-
-    protected void readObjectGen(ObjectInputStream ois)
-            throws IOException, ClassNotFoundException {
-
-        setX(ois.readDouble());
-        setY(ois.readDouble());
-        set_VX(ois.readDouble());
-        set_VY(ois.readDouble());
-        set_AX(ois.readDouble());
-        set_AY(ois.readDouble());
-        set_Degre(ois.readDouble());
-        set_Genre(ois.readDouble());
-        set_Mass(ois.readDouble());
-        set_Rate(ois.readDouble());
-    }
 
 
     SingleParticle(Image image, double x, double y,
@@ -156,6 +142,14 @@ abstract class SingleParticle extends ImageView implements Serializable {
     }
 
 
+    public void touer() {
+        mourant = true;
+    }
+
+    public boolean isDying() {
+        return mourant;
+    }
+
 
     double get_Degre() {
         return degre.getValue();
@@ -239,6 +233,25 @@ abstract class SingleParticle extends ImageView implements Serializable {
     Jouer audioClip chaque fois quand l'objet cogne
     sur les parois du parent :  audio.play() */
     abstract void move();
+
+    //Fonctions pour sauvegarder une particule dans un fichier
+    abstract protected void writeParticle(FileWriter writer) throws IOException;
+
+    protected void readObjectGen(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+
+        setX(ois.readDouble());
+        setY(ois.readDouble());
+        set_VX(ois.readDouble());
+        set_VY(ois.readDouble());
+        set_AX(ois.readDouble());
+        set_AY(ois.readDouble());
+        set_Degre(ois.readDouble());
+        set_Genre(ois.readDouble());
+        set_Mass(ois.readDouble());
+        set_Rate(ois.readDouble());
+    }
+
 
 
 }
