@@ -84,6 +84,8 @@ public class Controller {
     private Image current_demon_m_dead_image;
     private Image current_bullet_image;
     private AudioClip current_audio_clip;
+    private AudioClip current_death_audio_clip;
+    private AudioClip current_background_audio_clip;
 
     @FXML
     public void initialize() {
@@ -93,6 +95,15 @@ public class Controller {
         setGame();
 
         difficute();
+
+        current_background_audio_clip = new AudioClip(getClass()
+                .getResource("ressources/Mexican Mariachi Music.mp3").toString());
+
+        current_death_audio_clip = new AudioClip(getClass()
+                .getResource("ressources/Bruh Sound Effect #2.mp3").toString());
+
+        current_background_audio_clip.play();
+
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -199,7 +210,7 @@ public class Controller {
             pane.getChildren().add(obsPart);
         }
         AudioClip audioClip = new AudioClip(getClass()
-                .getResource("ressources/1967.wav").toString());
+                .getResource("ressources/Cartoon Boing Sound Effect.mp3").toString());
 
         current_audio_clip = audioClip;
 
@@ -342,13 +353,13 @@ public class Controller {
 
                 if (mode == 2) {
 
-                    if (kC == O) {
+                    if (kC == I) {
                         cb.set_Degre(0);
-                    } else if (kC == K) {
+                    } else if (kC == J) {
                         cb.set_Degre(270);
-                    } else if (kC == SEMICOLON) {
-                        cb.set_Degre(90);
                     } else if (kC == L) {
+                        cb.set_Degre(90);
+                    } else if (kC == K) {
                         cb.set_Degre(180);
                     }
 
@@ -397,7 +408,7 @@ public class Controller {
         Random random = new Random(System.nanoTime());
 
         AudioClip audioClip = new AudioClip(getClass()
-                .getResource("ressources/1967.wav").toString());
+                .getResource("ressources/Cartoon Boing Sound Effect.mp3").toString());
 
         /*pour chaque couple de particules
                 verifier si les deux particules chevauchent.
@@ -424,6 +435,9 @@ public class Controller {
                         .intersects(particles.get(j).getBoundsInParent())) {
 
                     if (particles.get(i) instanceof ObstacleParticle) {
+
+                        audioClip.play();
+
                         double diffX = Math.abs(particles.get(j).getX() - particles.get(i).getX());
                         double diffY = Math.abs(particles.get(j).getY() - particles.get(i).getY());
 
@@ -440,6 +454,8 @@ public class Controller {
                     }
 
                     if (particles.get(j) instanceof ObstacleParticle) {
+
+                        audioClip.play();
 
                         double diffX = Math.abs(particles.get(j).getX() - particles.get(i).getX());
                         double diffY = Math.abs(particles.get(j).getY() - particles.get(i).getY());
@@ -464,6 +480,7 @@ public class Controller {
                             if (!(particles.get(j).isDying())) {
                                 particles.get(j).setImage(particles.get(j).get_Genre() < 50 ? current_demon_m_dead_image : current_demon_f_dead_image);
                                 particles.get(j).touer();
+                                current_death_audio_clip.play();
                             } else {
                                 try {
                                     sleep(1000);
@@ -494,6 +511,7 @@ public class Controller {
                             if (!(particles.get(i).isDying())) {
                                 particles.get(i).setImage(particles.get(i).get_Genre() < 50 ? current_demon_m_dead_image : current_demon_f_dead_image);
                                 particles.get(i).touer();
+                                current_death_audio_clip.play();
                             } else {
                                 try {
                                     sleep(1000);
@@ -1053,6 +1071,10 @@ public class Controller {
         CowboyParticle cb = new CowboyParticle(soldat, pane.getPrefWidth() / 2 - 10 + cowboyList.size() * 20, pane.getPrefHeight() / 2, 0, 0, null, 10, nbBallesDebut, I, K, J, L, N);
         cowboyList.add(cb);
         pane.getChildren().add(cb);
+
+        cb.rateProperty().bind(slider.valueProperty()
+                .multiply(1));
+
     }
 
     public void removePlayer(ActionEvent actionEvent) {
