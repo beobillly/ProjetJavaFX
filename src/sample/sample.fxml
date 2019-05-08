@@ -22,6 +22,8 @@
                 </MenuItem>
                 <MenuItem text="Changer le background" onAction="#background" accelerator="shortcut+B">
                 </MenuItem>
+                <MenuItem text="Changer la visee" onAction="#visee" accelerator="shortcut+V">
+                </MenuItem>
             </Menu>
             <Menu text="Difficulté">
                 <MenuItem text="Facile" onAction="#difficute_facile" accelerator="shortcut+F">

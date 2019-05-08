@@ -83,7 +83,7 @@ public class Controller {
     private AudioClip current_audio_clip;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
 
         initStages();
 
@@ -131,11 +131,11 @@ public class Controller {
 
     }
 
-    public void resetVariables() {
+    private void resetVariables() {
         nbEnnemisCourant = nb; //nombre de particules ennemies
     }
 
-    public void resetParticles() {
+    private void resetParticles() {
         synchronized (this) {
             for (int i = 0; i < particles.size(); i++) {
 
@@ -146,7 +146,7 @@ public class Controller {
         }
     }
 
-    public void resetCowboys() {
+    private void resetCowboys() {
         synchronized (this) {
             for (int i = 0; i < cowboyList.size(); i++) {
 
@@ -275,7 +275,7 @@ public class Controller {
         pane.setBackground(new Background(new BackgroundImage(fond_ecran.get(choix), null, null, null, null)));
     }
 
-    void setGame() {
+    private void setGame() {
         particles = new ArrayList<SingleParticle>();
         fond_ecran = new ArrayList<Image>();
         cowboyList = new ArrayList<CowboyParticle>();
@@ -297,7 +297,7 @@ public class Controller {
         chooseWallpaper();
     }
 
-    public void manageCowboyControls() {
+    private void manageCowboyControls() {
         pane.getParent().getParent().getParent().setOnKeyPressed(event -> {
 
             for (CowboyParticle cb : cowboyList) {
@@ -374,7 +374,7 @@ public class Controller {
 
     }
 
-    public void manageCollisions() {
+    private void manageCollisions() {
 
         URL url = getClass().getResource("ressources/demon_f.png");
         Image demon_f = new Image(url.toString());
@@ -550,7 +550,7 @@ public class Controller {
         }
     }
 
-    public void updateLabels() {
+    private void updateLabels() {
         label_Munitions.setText("Munitions restantes : " + cowboyList.get(0).get_Munitions());
         label_Ultimate.setText("Ultimate chargé : " + cowboyList.get(0).get_Ultimate());
         label_Ennemis.setText("Ennemis restants : " + (nbEnnemisCourant));
@@ -562,7 +562,7 @@ public class Controller {
     }
 
 
-    public void initStages() {
+    private void initStages() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass()
@@ -822,7 +822,7 @@ public class Controller {
         changerControle();
     }
 
-    void changerControle() throws IOException {
+    private void changerControle() throws IOException {
         animationTimer.stop();
         BufferedReader in;
         in = new BufferedReader(new FileReader("Controle.txt"));
@@ -926,19 +926,19 @@ public class Controller {
         fenetre_help.show();
     }
 
-    public void victoire() {
+    private void victoire() {
         animationTimer.stop();
         fenetre_win.show();
         rejouer();
     }
 
-    public void defaite() {
+    private void defaite() {
         animationTimer.stop();
         fenetre_lose.show();
         rejouer();
     }
 
-    public void rejouer() {
+    private void rejouer() {
 
         animationTimer.stop();
         resetParticles();
@@ -993,6 +993,7 @@ public class Controller {
 
     public void createPlayer(ActionEvent actionEvent) {
 
+        mode = 1;
         URL url = getClass().getResource("ressources/soldat.png");
         Image soldat = new Image(url.toString());
 
@@ -1043,6 +1044,16 @@ public class Controller {
         animationTimer.start();
     }
 
+    private void changerVisee() {
+        if (cowboyList.size() == 1) {
+            if (mode == 1)
+                mode = 2;
+            else mode = 1;
+        }
+    }
 
+    public void visee(ActionEvent actionEvent) {
+        changerVisee();
+    }
 }
 
