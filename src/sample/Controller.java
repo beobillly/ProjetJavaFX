@@ -57,14 +57,14 @@ public class Controller {
 
     protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
-    private final int nb = 3; //nombre de particules ennemies en début de partie
+    private final int nb = 30; //nombre de particules ennemies en début de partie
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
     private final int nbObstacles = 5;//nombre d'obstacles
     private final int nbBallesDebut = 30;
     private int nbEnnemisCourant = nb; //nombre d'ennemis sur l'arene;
     private double bulletSpeed = 10; //Vitesse des balles
-    private int nbEnnemisMax = 35; //nb d'ennemis maximal sur l'arene
+    private int nbEnnemisMax = 20; //nb d'ennemis maximal sur l'arene
     protected Stage fenetre_lose = new Stage();
     int mode = 1;//mode de déplacement
     protected Stage fenetre_win = new Stage();
@@ -123,6 +123,11 @@ public class Controller {
                         cb.move();
                 }
 
+                try {
+                    changerControle();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 manageCowboyControls();
 
@@ -488,7 +493,7 @@ public class Controller {
                                 current_death_audio_clip.play();
                             } else {
                                 try {
-                                    sleep(1000);
+                                    sleep(400);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -519,7 +524,7 @@ public class Controller {
                                 current_death_audio_clip.play();
                             } else {
                                 try {
-                                    sleep(1000);
+                                    sleep(400);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -1004,6 +1009,7 @@ public class Controller {
 
     private void victoire() {
         animationTimer.stop();
+        current_victory_audio_clip.play();
         fenetre_win.show();
         rejouer();
     }
