@@ -57,7 +57,7 @@ public class Controller {
 
     protected AnimationTimer animationTimer;
     private Integer ennemis_Mort = 0;
-    private final int nb = 7; //nombre de particules ennemies en début de partie
+    private final int nb = 4; //nombre de particules ennemies en début de partie
     private ArrayList<SingleParticle> particles;
     private ArrayList<Image> fond_ecran;
     private final int nbObstacles = 5;//nombre d'obstacles
